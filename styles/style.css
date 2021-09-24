@@ -87,17 +87,17 @@ th {
 }
 
 .container-energia {
-    min-width: 320px;
-    width: 20%;
+    min-width: 280px;
+    width: 30%;
     margin: 1rem;
 }
 
-.container-historico {
-    min-width: 320px;
-    margin: 1rem;
-    text-align: left;
+.container-tabla {
+    min-width: 280px;
 
 }
+
+
 
 .energia,
 .turno {
@@ -117,10 +117,24 @@ th {
 .flex {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
 
 }
 
 .noPadding {
     padding: 0 0.5rem;
+}
+
+@media screen and (max-width: 1100px) {
+
+    .estrecho {
+        max-width: 3em;
+    }
+
+    td,
+    th {
+        max-width: auto;
+    }
+
 }

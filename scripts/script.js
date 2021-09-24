@@ -18,9 +18,12 @@ function loadGeneral() {
     for (let i = 0; i < botonTipo.length; i++) {
         botonTipo[i].addEventListener("change", cogerValorChecked)
     }
+    crearImg()
     crearGestorEnergia()
     crearHistorico()
     historico = document.getElementById("historico")
+
+
 }
 
 function crearGestorEnergia() {
@@ -59,7 +62,6 @@ function crearGestorEnergia() {
     document.getElementById("resetEnergia").addEventListener("click", () => {
         energia.value = 3;
         turno.value = 1;
-        console.log(historico)
         historico.textContent = "Turno: 1| 3; "
     })
 
@@ -99,14 +101,14 @@ function generarEventoTabla() {
 }
 
 function crearTablaInicial() {
-    let article = crearElemento("ARTICLE")
-    article.addEventListener("submit", (e) => e.preventDefault)
+    let article = crearElemento("ARTICLE", "class", "cotainer-flex")
+    // article.addEventListener("submit", (e) => e.preventDefault)
+
     let tabla = crearElemento("TABLE")
     let fila = crearElemento("TR")
     fila.appendChild(crearElemento("TH"))
-    fila.appendChild(crearElemento("TH", "textContent", "Carta y axie diferente", "colspan", 3))
-    fila.appendChild(crearElemento("TH", "textContent", "Carta y axie igual", "colspan", 3))
-
+    fila.appendChild(crearElemento("TH", "textContent", "Carta y axie diferente", "colspan", 3, ))
+    fila.appendChild(crearElemento("TH", "textContent", "Carta y axie igual", "colspan", 3, ))
     tabla.appendChild(fila)
     fila = crearElemento("TR")
     fila.appendChild(crearElemento("TH"))
@@ -129,16 +131,12 @@ function crearTablaInicial() {
     tabla.appendChild(crearFila("4"))
     tabla.appendChild(crearFila("Total"))
     article.appendChild(tabla)
-    let img = crearElemento("IMG", "src", "img/clases-axies-axie-infinity.png", "alt", "Triangulo de fuerza axie")
-    article.appendChild(img)
     document.getElementById("contenedorTabla").appendChild(article)
     for (let i = 1; i < 5; i++) {
         document.getElementById("base" + i).addEventListener("keyup", calcularFilas)
         document.getElementById("checkboxPotenciado" + i).addEventListener("change", calcularFilas)
         document.getElementById("checkboxPotenciado2" + i).addEventListener("change", calcularFilas)
-
         document.getElementById("checkboxCritico" + i).addEventListener("change", calcularFilas)
-
         document.getElementById("reset" + i).addEventListener('click', resetFila)
         for (let j = 0; j < arrayValoresBotones.length; j++) {
             document.getElementById(j + "" + i).addEventListener('click', cambiarValor)
@@ -179,37 +177,37 @@ function crearFila(numerofila) {
         campo, contenidocolumna, label
     let nombreEId = "base" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0)
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "debil" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "normal" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "fuerte" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "debTipo" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "normTipo" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "fueTipo" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "checkboxCritico" + numerofila
@@ -250,38 +248,35 @@ function crearFila(numerofila) {
 }
 
 function calcularFilas() {
+    let numeroDeFila = this.id.slice(this.id.length - 1)
     let posicion,
         checkboxPotenciado, valorCeldaNormal, checkboxCritico
-    posicion = this.parentNode.parentNode.firstChild.firstChild
+    posicion = document.getElementById(`base${numeroDeFila}`)
     valorCeldaNormal = posicion.value
-    checkboxCritico = this.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.checked
-    checkboxPotenciado = this.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.checked
-    checkboxPotenciado2 = this.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.checked
+    checkboxCritico = document.getElementById(`checkboxCritico${numeroDeFila}`).checked
+    checkboxPotenciado = document.getElementById(`checkboxPotenciado${numeroDeFila}`).checked
+    checkboxPotenciado2 = document.getElementById(`checkboxPotenciado2${numeroDeFila}`).checked
+    let normal = valorCeldaNormal,
+        debil = valorCeldaNormal * 0.85,
+        fuerte = valorCeldaNormal * 1.15,
+        normTipo = normal * 1.1,
+        debTipo = debil * 1.1,
+        fueTipo = fuerte * 1.1,
+        arrayvalores = [normal, debil, fuerte, normTipo, debTipo, fueTipo]
 
-    while (!(posicion.getAttribute("id").includes("checkbox"))) {
-        posicion = posicion.parentNode.nextSibling.firstChild
-        if (posicion.getAttribute("id").startsWith("normal")) {
-            posicion.value = valorCeldaNormal
-        } else if (posicion.getAttribute("id").startsWith("debil")) {
-            posicion.value = valorCeldaNormal * 0.85
-        } else if (posicion.getAttribute("id").startsWith("fuerte")) {
-            posicion.value = valorCeldaNormal * 1.15
-        } else if (posicion.getAttribute("id").startsWith("normTipo")) {
-            posicion.value = valorCeldaNormal * 1.10
-        } else if (posicion.getAttribute("id").startsWith("debTipo")) {
-            posicion.value = valorCeldaNormal * 1.10 * 0.85
-        } else if (posicion.getAttribute("id").startsWith("fueTipo")) {
-            posicion.value = valorCeldaNormal * 1.10 * 1.15
-        }
-        if (checkboxPotenciado)
-            posicion.value *= 1.2
-        if (checkboxPotenciado2)
-            posicion.value *= 1.2
-        if (checkboxCritico)
-            posicion.value *= 2
-        posicion.value = Math.trunc(Number(posicion.value) + valorCeldaNormal * skillaxie / 500)
-
-
+    if (checkboxPotenciado) {
+        arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 1.2)
+    }
+    if (checkboxPotenciado2) {
+        arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 1.2)
+    }
+    if (checkboxCritico) {
+        arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 2)
+    }
+    arrayvalores.forEach((dato, indice, arr) => arr[indice] = Math.trunc(Number(dato) + valorCeldaNormal * skillaxie / 500))
+    let arrayTabla = ["normal", "debil", "fuerte", "normTipo", "debTipo", "fueTipo"]
+    for (let i = 0; i < arrayTabla.length; i++) {
+        document.getElementById(arrayTabla[i] + numeroDeFila).value = arrayvalores[i]
     }
     calcularTotales()
 }
@@ -300,10 +295,11 @@ function calcularTotales() {
 }
 
 function resetFila() {
-    this.parentNode.parentNode.firstChild.firstChild.value = 0
-    let checkboxCritico = this.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild,
-        checkboxPotenciado = this.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild,
-        checkboxPotenciado2 = this.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild
+    let numeroDeFila = this.id.slice(5)
+    document.getElementById(`base${numeroDeFila}`).value = 0
+    let checkboxCritico = document.getElementById(`checkboxCritico${numeroDeFila}`),
+        checkboxPotenciado = document.getElementById(`checkboxPotenciado${numeroDeFila}`),
+        checkboxPotenciado2 = document.getElementById(`checkboxPotenciado2${numeroDeFila}`)
     if (checkboxCritico.checked) {
         checkboxCritico.checked = false
     }
@@ -313,7 +309,8 @@ function resetFila() {
 }
 
 function cambiarValor() {
-    this.parentNode.parentNode.firstChild.firstChild.value = Number(this.textContent)
+    let numeroDeFila = this.id.slice(this.id.length - 1)
+    document.getElementById(`base${numeroDeFila}`).value = Number(this.textContent)
     generarEventoTabla()
 }
 
@@ -326,11 +323,20 @@ function resetTabla() {
 }
 
 function crearHistorico() {
-    let article = crearElemento("ARTICLE", "class", "container-historico")
+    let article = crearElemento("ARTICLE", "class", "container-energia")
     let h2 = crearElemento("H2", "textContent", "Historico")
     article.appendChild(h2)
     let p = crearElemento("P", "id", "historico", "textContent", "Turno: 1| 3;")
     article.appendChild(p)
     document.getElementById("contenedorFlex").appendChild(article)
+
+}
+
+function crearImg() {
+    let article = crearElemento("ARTICLE", "class", "container-energia")
+    let img = crearElemento("IMG", "src", "img/clases-axies-axie-infinity.png", "alt", "Triangulo de fuerza axie")
+    article.appendChild(img)
+    document.getElementById("contenedorFlex").appendChild(article)
+
 
 }
