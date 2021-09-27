@@ -7,6 +7,17 @@
     <title>Calculadora daño Axie</title>
     <script src="scripts/script.js"></script>
     <link rel="stylesheet" href="styles/style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RH151D7XR3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RH151D7XR3');
+    </script>
 </head>
 
 <body>
@@ -18,6 +29,7 @@
 
             <div id="contenedorTabla">
                 <h2>Calculadora Daño</h2>
+                <span><b> Tipo de atacante: </b></span>
                 <input type="radio" name="tipoAtaca" id="Dusk" value="29"><label for="Dusk">Dusk</label>
                 <input type="radio" name="tipoAtaca" id="planta" value="31" checked><label
                     for="planta">Planta/Bestia/Reptil</label>

@@ -126,15 +126,28 @@ th {
     padding: 0 0.5rem;
 }
 
-@media screen and (max-width: 1100px) {
+.oculto {
+    color: transparent;
+}
 
-    .estrecho {
-        max-width: 3em;
-    }
+.ancho-auto {
+    max-width: auto;
+}
+
+@media screen and (max-width: 1100px) {
 
     td,
     th {
         max-width: auto;
     }
 
+    .noPadding {
+        padding: 0 0.2rem;
+    }
+
+    html,
+    body {
+        margin: 0rem;
+        padding: 0;
+    }
 }

@@ -23,7 +23,6 @@ function loadGeneral() {
     crearHistorico()
     historico = document.getElementById("historico")
 
-
 }
 
 function crearGestorEnergia() {
@@ -101,37 +100,94 @@ function generarEventoTabla() {
 }
 
 function crearTablaInicial() {
-    let article = crearElemento("ARTICLE", "class", "cotainer-flex")
+    let article = crearElemento("ARTICLE", "class", "flex")
     // article.addEventListener("submit", (e) => e.preventDefault)
-
+    let contenedor = crearElemento("DIV")
     let tabla = crearElemento("TABLE")
     let fila = crearElemento("TR")
     fila.appendChild(crearElemento("TH"))
     fila.appendChild(crearElemento("TH", "textContent", "Carta y axie diferente", "colspan", 3, ))
-    fila.appendChild(crearElemento("TH", "textContent", "Carta y axie igual", "colspan", 3, ))
     tabla.appendChild(fila)
     fila = crearElemento("TR")
     fila.appendChild(crearElemento("TH"))
     fila.appendChild(crearElemento("TH", "textContent", "Debil"))
     fila.appendChild(crearElemento("TH", "textContent", "Normal"))
     fila.appendChild(crearElemento("TH", "textContent", "Fuerte"))
+    tabla.appendChild(fila)
+    console.log(tabla);
+    tabla.appendChild(crearFilaDiferente("1"))
+    tabla.appendChild(crearFilaDiferente("2"))
+    tabla.appendChild(crearFilaDiferente("3"))
+    tabla.appendChild(crearFilaDiferente("4"))
+    tabla.appendChild(crearFilaDiferente("Total"))
+    contenedor.appendChild(tabla)
+    article.appendChild(contenedor)
+
+
+    contenedor = crearElemento("DIV")
+    tabla = crearElemento("TABLE")
+    fila = crearElemento("TR")
+    fila.appendChild(crearElemento("TH", "textContent", "Carta y axie igual", "colspan", 3, ))
+    tabla.appendChild(fila)
+    fila = crearElemento("TR")
     fila.appendChild(crearElemento("TH", "textContent", "Debil "))
     fila.appendChild(crearElemento("TH", "textContent", "Normal"))
     fila.appendChild(crearElemento("TH", "textContent", "Fuerte"))
-    for (let i = 0; i < arrayValoresBotones.length + 4; i++)
-        fila.appendChild(crearElemento("TH"))
+    tabla.appendChild(fila)
+    tabla.appendChild(crearFilaIgual("1"))
+    tabla.appendChild(crearFilaIgual("2"))
+    tabla.appendChild(crearFilaIgual("3"))
+    tabla.appendChild(crearFilaIgual("4"))
+    tabla.appendChild(crearFilaIgual("Total"))
+    contenedor.appendChild(tabla)
+    article.appendChild(contenedor)
+
+    contenedor = crearElemento("DIV")
+    tabla = crearElemento("TABLE")
+
+    fila = crearElemento("TR")
+    fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
+    tabla.appendChild(fila)
+    fila = crearElemento("TR")
+    fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
+    tabla.appendChild(fila)
+    tabla.appendChild(crearFilaCheckBox("1"))
+    tabla.appendChild(crearFilaCheckBox("2"))
+    tabla.appendChild(crearFilaCheckBox("3"))
+    tabla.appendChild(crearFilaCheckBox("4"))
+    tabla.appendChild(crearFilaCheckBox("Total"))
+    contenedor.appendChild(tabla)
+    article.appendChild(contenedor)
+
+
+
+    document.getElementById("contenedorTabla").appendChild(article)
+
+
+
+    contenedor = crearElemento("DIV")
+    tabla = crearElemento("TABLE")
+
+    fila = crearElemento("TR")
+    fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
+    tabla.appendChild(fila)
+    fila = crearElemento("TR")
+    for (let i = 0; i < arrayValoresBotones.length; i++)
+        fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
     let boton = crearElemento("BUTTON", "textContent", "Res.Tabla", "id", "resetTabla")
-    let campo = crearElemento("TH", "rowspan", "5")
+    let campo = crearElemento("TH", "rowspan", "6", "class", "ancho-auto")
     campo.appendChild(boton)
     fila.appendChild(campo)
     tabla.appendChild(fila)
-    tabla.appendChild(crearFila("1"))
-    tabla.appendChild(crearFila("2"))
-    tabla.appendChild(crearFila("3"))
-    tabla.appendChild(crearFila("4"))
-    tabla.appendChild(crearFila("Total"))
-    article.appendChild(tabla)
+    tabla.appendChild(crearFilaBotones("1"))
+    tabla.appendChild(crearFilaBotones("2"))
+    tabla.appendChild(crearFilaBotones("3"))
+    tabla.appendChild(crearFilaBotones("4"))
+    tabla.appendChild(crearFilaBotones("Total"))
+    contenedor.appendChild(tabla)
+    article.appendChild(contenedor)
     document.getElementById("contenedorTabla").appendChild(article)
+
     for (let i = 1; i < 5; i++) {
         document.getElementById("base" + i).addEventListener("keyup", calcularFilas)
         document.getElementById("checkboxPotenciado" + i).addEventListener("change", calcularFilas)
@@ -172,7 +228,7 @@ function crearElemento(elemento, ...atributo) {
     return elementoCreado
 }
 
-function crearFila(numerofila) {
+function crearFilaDiferente(numerofila) {
     let fila = crearElemento("TR"),
         campo, contenidocolumna, label
     let nombreEId = "base" + numerofila
@@ -195,7 +251,13 @@ function crearFila(numerofila) {
     contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
-    nombreEId = "debTipo" + numerofila
+    return fila
+}
+
+function crearFilaIgual(numerofila) {
+    let fila = crearElemento("TR"),
+        campo, contenidocolumna
+    let nombreEId = "debTipo" + numerofila
     campo = crearElemento("TD")
     contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
@@ -210,7 +272,13 @@ function crearFila(numerofila) {
     contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled", "class", "estrecho")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
-    nombreEId = "checkboxCritico" + numerofila
+    return fila
+}
+
+function crearFilaCheckBox(numerofila) {
+    let fila = crearElemento("TR"),
+        campo, contenidocolumna, label
+    let nombreEId = "checkboxCritico" + numerofila
     campo = crearElemento("TD")
     contenidocolumna = crearElemento("INPUT", "type", "checkbox", "name", nombreEId, "id", nombreEId)
     label = crearElemento("LABEL", "textContent", "Crit", "for", nombreEId)
@@ -236,6 +304,12 @@ function crearFila(numerofila) {
     contenidocolumna = crearElemento("button", "type", "button", "name", nombreEId, "id", nombreEId, "textContent", "Res", "class", "noPadding")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
+    return fila
+}
+
+function crearFilaBotones(numerofila) {
+    let fila = crearElemento("TR"),
+        campo, contenidocolumna, nombreEId
     for (let i = 0; i < arrayValoresBotones.length; i++) {
         nombreEId = i + numerofila
         campo = crearElemento('TD')
@@ -243,7 +317,6 @@ function crearFila(numerofila) {
         campo.appendChild(contenidocolumna)
         fila.appendChild(campo)
     }
-
     return fila
 }
 
