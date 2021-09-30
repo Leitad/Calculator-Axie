@@ -57,24 +57,39 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-[type='number'] {
+[type='number'],
+[type='text'] {
     background-color: #FFFFFF88;
     margin: 0;
     text-align: center;
     max-width: 100%;
     border-color: #A19D91;
+}
 
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #8AA19E;
+    left: 0;
+}
+
+.numeroAnadir {
+    max-width: 4em;
+    margin-top: 0.2em;
 }
 
 td,
 th {
+    margin: 0.2em;
     max-width: 4em;
 }
 
 .container-1400 {
     display: block;
     margin: auto;
-
+    min-height: 98vh;
+    position: relative;
 }
 
 .container-1400 {
@@ -130,8 +145,16 @@ th {
     color: transparent;
 }
 
+.margin {
+    margin: 0.2em;
+}
+
+.div-oculto {
+    display: none;
+}
+
 .ancho-auto {
-    max-width: auto;
+    max-width: 10rem;
 }
 
 @media screen and (max-width: 1100px) {
@@ -149,5 +172,9 @@ th {
     body {
         margin: 0rem;
         padding: 0;
+    }
+
+    #tablaBotonera {
+        max-width: 100%;
     }
 }

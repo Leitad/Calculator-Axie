@@ -1,18 +1,23 @@
 //let arrayValoresBotones = JSON.parse(localStorage.botonesDano)
-let arrayValoresBotones = [
-        70,
-        75,
-        100,
-        105,
-        110,
-        115
-    ],
+let arrayValoresBotones,
     skillaxie = 31,
     historico
 
 window.addEventListener("load", loadGeneral)
 
 function loadGeneral() {
+    if (localStorage.botonesDano != undefined) {
+        arrayValoresBotones = JSON.parse(localStorage.botonesDano)
+    } else {
+        arrayValoresBotones = [
+            70,
+            75,
+            100,
+            105,
+            110,
+            115
+        ]
+    }
     crearTablaInicial()
     let botonTipo = document.getElementsByName("tipoAtaca")
     for (let i = 0; i < botonTipo.length; i++) {
@@ -114,7 +119,6 @@ function crearTablaInicial() {
     fila.appendChild(crearElemento("TH", "textContent", "Normal"))
     fila.appendChild(crearElemento("TH", "textContent", "Fuerte"))
     tabla.appendChild(fila)
-    console.log(tabla);
     tabla.appendChild(crearFilaDiferente("1"))
     tabla.appendChild(crearFilaDiferente("2"))
     tabla.appendChild(crearFilaDiferente("3"))
@@ -159,44 +163,28 @@ function crearTablaInicial() {
     contenedor.appendChild(tabla)
     article.appendChild(contenedor)
 
-
-
-    document.getElementById("contenedorTabla").appendChild(article)
-
-
-
     contenedor = crearElemento("DIV")
-    tabla = crearElemento("TABLE")
-
-    fila = crearElemento("TR")
-    fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
-    tabla.appendChild(fila)
-    fila = crearElemento("TR")
-    for (let i = 0; i < arrayValoresBotones.length; i++)
-        fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
-    let boton = crearElemento("BUTTON", "textContent", "Res.Tabla", "id", "resetTabla")
-    let campo = crearElemento("TH", "rowspan", "6", "class", "ancho-auto")
-    campo.appendChild(boton)
-    fila.appendChild(campo)
-    tabla.appendChild(fila)
-    tabla.appendChild(crearFilaBotones("1"))
-    tabla.appendChild(crearFilaBotones("2"))
-    tabla.appendChild(crearFilaBotones("3"))
-    tabla.appendChild(crearFilaBotones("4"))
-    tabla.appendChild(crearFilaBotones("Total"))
+    tabla = crearElemento("TABLE", "id", "tablaBotonera")
+    tabla.appendChild(contenidoTablaBotonera())
     contenedor.appendChild(tabla)
     article.appendChild(contenedor)
     document.getElementById("contenedorTabla").appendChild(article)
 
-    for (let i = 1; i < 5; i++) {
+    let boton = crearElemento("BUTTON", "type", "button", "textContent", "Mostrar Gestión de Números", "id", "mostrarGestorNumeros")
+    document.getElementById("mostrarGestorBotones").appendChild(boton)
+    contenedor = crearGestorBotones()
+    document.getElementById("mostrarGestorBotones").appendChild(contenedor)
+
+    anadirFuncionBotonera()
+    document.getElementById("mostrarGestorNumeros").addEventListener("click", mostrarGestorNumeros)
+    document.getElementById("borrarNumero").addEventListener("click", borrarNumero)
+    document.getElementById("anadirNumero").addEventListener("click", anadirNumero)
+    for (i = 1; i < 5; i++) {
         document.getElementById("base" + i).addEventListener("keyup", calcularFilas)
         document.getElementById("checkboxPotenciado" + i).addEventListener("change", calcularFilas)
         document.getElementById("checkboxPotenciado2" + i).addEventListener("change", calcularFilas)
         document.getElementById("checkboxCritico" + i).addEventListener("change", calcularFilas)
         document.getElementById("reset" + i).addEventListener('click', resetFila)
-        for (let j = 0; j < arrayValoresBotones.length; j++) {
-            document.getElementById(j + "" + i).addEventListener('click', cambiarValor)
-        }
 
     }
     document.getElementById("baseTotal").parentNode.textContent = ""
@@ -210,8 +198,90 @@ function crearTablaInicial() {
     for (i = 0; i < arrayValoresBotones.length; i++) {
         document.getElementById(i + "Total").parentNode.textContent = ""
     }
+
+}
+
+function anadirFuncionBotonera() {
+    for (i = 1; i < 5; i++) {
+        for (let j = 0; j < arrayValoresBotones.length; j++) {
+            document.getElementById(j + "" + i).addEventListener('click', cambiarValor)
+        }
+    }
     document.getElementById("resetTabla").addEventListener('click', resetTabla)
 
+
+}
+
+function mostrarGestorNumeros() {
+    document.getElementById("cambiarBotones").classList.toggle("div-oculto")
+    if (this.textContent == "Mostrar Gestión de Números")
+        this.textContent = "Ocultar Gestión de Números"
+    else
+        this.textContent = "Mostrar Gestión de Números"
+}
+
+function contenidoTablaBotonera() {
+    let tablaBotonera = document.getElementById("tablaBotonera"),
+        fila, fragmento = document.createDocumentFragment()
+
+    if (tablaBotonera)
+        tablaBotonera.textContent = ""
+
+    fila = crearElemento("TR")
+    fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
+    fragmento.appendChild(fila)
+    fila = crearElemento("TR")
+    for (let i = 0; i < arrayValoresBotones.length; i++)
+        fila.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
+    let boton = crearElemento("BUTTON", "textContent", "Res.Tabla", "id", "resetTabla")
+    let campo = crearElemento("TH", "rowspan", "6", "class", "ancho-auto")
+    campo.appendChild(boton)
+    fila.appendChild(campo)
+    fragmento.appendChild(fila)
+    fragmento.appendChild(crearFilaBotones("1"))
+    fragmento.appendChild(crearFilaBotones("2"))
+    fragmento.appendChild(crearFilaBotones("3"))
+    fragmento.appendChild(crearFilaBotones("4"))
+    if (tablaBotonera)
+        fragmento.appendChild(crearElemento("TH", "textContent", "a", "class", "oculto"))
+    else
+        fragmento.appendChild(crearFilaBotones("Total"))
+    if (tablaBotonera) {
+        tablaBotonera.appendChild(fragmento)
+        anadirFuncionBotonera()
+    } else
+        return fragmento
+
+}
+
+function borrarNumero() {
+    let valorSeleccionado = document.getElementById("botonesDano").value
+    arrayValoresBotones.splice(valorSeleccionado, 1)
+    crearOpcionesGestor()
+    contenidoTablaBotonera()
+    localStorage.botonesDano = JSON.stringify(arrayValoresBotones)
+}
+
+function anadirNumero() {
+    let valorSeleccionado = document.getElementById("numeroAnadir"),
+        banderaNumeros = false
+    if (valorSeleccionado.value == "") {
+        banderaNumeros = true
+    }
+
+    for (let i = 0; i < arrayValoresBotones.length && banderaNumeros == false; i++) {
+        if (valorSeleccionado.value == arrayValoresBotones[i]) {
+            banderaNumeros = true
+        }
+    }
+    if (!banderaNumeros) {
+        arrayValoresBotones.push(valorSeleccionado.value)
+        arrayValoresBotones.sort((a, b) => a - b)
+        crearOpcionesGestor()
+        contenidoTablaBotonera()
+        localStorage.botonesDano = JSON.stringify(arrayValoresBotones)
+        valorSeleccionado.value = ""
+    }
 }
 
 function crearElemento(elemento, ...atributo) {
@@ -226,6 +296,40 @@ function crearElemento(elemento, ...atributo) {
     } else
         console.log("ERROR en el numero de introduccion de argumentos");
     return elementoCreado
+}
+
+function crearGestorBotones() {
+
+
+    let contenedor = crearElemento("DIV", "id", "cambiarBotones", "class", "div-oculto")
+    let select = crearElemento("SELECT", "id", "botonesDano", "class", "margin")
+
+    select.appendChild(crearOpcionesGestor())
+    contenedor.appendChild(select)
+    let boton = crearElemento("BUTTON", "type", "button", "textContent", "Borrar Numero", "id", "borrarNumero", "class", "noPadding")
+    contenedor.appendChild(boton)
+    let salto = crearElemento("BR")
+    contenedor.appendChild(salto)
+    let campoTexto = crearElemento("INPUT", "type", "number", "id", "numeroAnadir", "class", "numeroAnadir")
+    contenedor.appendChild(campoTexto)
+    boton = crearElemento("BUTTON", "type", "button", "textContent", "Añadir Numero", "id", "anadirNumero", "class", "noPadding")
+    contenedor.appendChild(boton)
+    return contenedor
+}
+
+function crearOpcionesGestor() {
+    let contenedorOpciones, opciones, botonesDano = document.getElementById("botonesDano")
+    if (botonesDano)
+        botonesDano.textContent = ""
+    contenedorOpciones = document.createDocumentFragment()
+    for (let i = 0; i < arrayValoresBotones.length; i++) {
+        opciones = crearElemento("OPTION", "value", i, "textContent", arrayValoresBotones[i])
+        contenedorOpciones.appendChild(opciones)
+    }
+    if (botonesDano)
+        botonesDano.appendChild(contenedorOpciones)
+    else
+        return contenedorOpciones
 }
 
 function crearFilaDiferente(numerofila) {
