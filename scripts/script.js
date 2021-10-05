@@ -1,7 +1,6 @@
-//let arrayValoresBotones = JSON.parse(localStorage.botonesDano)
 let arrayValoresBotones,
     skillaxie = 31,
-    historico
+    historico, desplegable, desplegableBoton, tamanodesplegable
 
 window.addEventListener("load", loadGeneral)
 
@@ -27,14 +26,144 @@ function loadGeneral() {
     crearGestorEnergia()
     crearHistorico()
     historico = document.getElementById("historico")
+    crearExplicacion()
+
+    desplegable = document.getElementById("contenedorExplicacion")
+    desplegableBoton = document.getElementById("mostrarComoFunciona")
+    tamanodesplegable = cogerAltura(desplegable) + 'px'
+    window.addEventListener('resize', () => {
+        tamanodesplegable = cogerAltura(desplegable) + 'px'
+        if (window.getComputedStyle(desplegable).height != "0px")
+            desplegable.style.maxHeight = tamanodesplegable
+    })
+    desplegableBoton.addEventListener('click', () => {
+        if (window.getComputedStyle(desplegable).height == "0px") {
+            desplegable.style.maxHeight = tamanodesplegable
+            setTimeout(() => tamanodesplegable = window.getComputedStyle(desplegable).height, 800)
+        } else {
+            desplegable.style.maxHeight = "0px"
+        }
+        desplegableBoton.disabled = true
+        setTimeout(() => desplegableBoton.disabled = false, 800)
+    })
+}
+
+function crearExplicacion() {
+    let contenedor = crearElemento("DIV", "id", "contenedorExplicacion", "class", "desplegable interlineado")
+    let boton = crearElemento("BUTTON", "type", "button", "id", "mostrarComoFunciona", "class", "margen-abajo")
+    let h2 = crearElemento("H2", "textContent", "Cómo funciona?", "class", "margen-auto")
+    boton.appendChild(h2)
+    let h3 = crearElemento("H3", "textContent", "Calculadora Daño")
+    let texto = "Lo primero es comprender cómo calcula axie el daño,"
+    let enlace = crearElemento("A", "href", " https://www.youtube.com/watch?v=bv8JwQRZjfU", "textContent", " en este video de KManuS88", "target", "_blank")
+    let texto2 = document.createDocumentFragment()
+    texto2.textContent = " se puede ver perfectamente "
+    let parrafo = crearElemento("P", "textContent", texto)
+    parrafo.appendChild(enlace)
+    parrafo.appendChild(texto2)
+    // contenedor.appendChild(boton)
+    contenedor.appendChild(h3)
+    contenedor.appendChild(parrafo)
+    parrafo = crearElemento("P", "textContent", "Partiendo de aquí tendremos que seleccionar cual es el axie que ataca para poder añadir el daño por combo basado en la skill(tipo de atacante).")
+    contenedor.appendChild(parrafo)
+    parrafo = crearElemento("P", "textContent", "Luego debemos aprender a leer la tabla:", "class", "interlineado-grande")
+    let salto = crearElemento("br")
+    texto2.textContent = "Carta: Ya sea por medio de la botonera o de forma manual es el valor de daño que pone en nuestra carta."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Ahora debemos elegir entre si las cartas son del mismo tipo que el axie o son diferentes, esto lo debemos hacer nosotros y dirigirnos a:"
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Carta y axie diferente: La carta que hemos lanzado y el axie son de tipo diferente."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Carta y axie igual: La carta que hemos lanzado y el axie son del mismo tipo."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Ahora para saber si es débil, normal o fuerte, debemos comparar la carta lanzada con el tipo del axie del rival, por si se tienen dudas hay una imagen abajo indicativa de que tipos son fuertes contra otros."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Débil: Hace un 85% de daño."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Normal: Hace el daño que pone en la carta."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Fuerte: Hace 115% de daño."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Luego tenemos opciones como Crit y +20% que son para los bonos, hay cartas que sabemos que van a hacer crítico o que van a tener estos bonos ya sea por buff o por que lo pone en la descripción, aquí faltaría añadir los -20% de el debufo o algunas otras especiales, pero tiempo al tiempo."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Crit: Dobla el daño antes de añadirle otros bonos."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "+20%: Bonos de ataque o específicos de la carta."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Botones:"
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Res: Borra los datos de la fila."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Números: Al pinchar añade ese valor en esa fila."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Res.Tabla: Borra los datos de toda la tabla."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    contenedor.appendChild(parrafo)
+    parrafo = crearElemento("P", "textContent", "Mostrar Gestión de Números:Muestra campos para añadir y borrar los botones de la tabla.", "class", "interlineado-grande")
+    salto = crearElemento("br")
+    texto2.textContent = "Esto quedará guardado en vuestro navegador, así que si formateas,  borras cache, cambias de ordenador... y ese tipo de cosas esto será reiniciado y volverá a los valores iniciales."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "El desplegable contiene los números que hay actualmente, seleccionando aquí y pulsando el botón Borrar Número, nos eliminara el número seleccionado."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Si por el contrario queremos añadir otros valores debemos hacerlo introduciendo el valor en el siguiente campo y apretar en Añadir Número."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "Al acabar podemos darle al botón Ocultar Gestión de Números y que no ocupe tanto."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    contenedor.appendChild(parrafo)
+    parrafo = crearElemento("P", "textContent", "Luego tenemos una imagen con los tipos de axie y sus fortalezas y debilidades.")
+    contenedor.appendChild(parrafo)
+    h3 = crearElemento("H3", "textContent", "Visualizador de energia.")
+    contenedor.appendChild(h3)
+    parrafo = crearElemento("P", "textContent", "Por último tenemos nuestro visualizador de la energía del rival con un histórico, se muestran campos para la energía para el turno que podemos modificar con la botonera de abajo, cuando pulsamos el botón Reset lo ponemos todo como al iniciar una partida en pvp, los botones +1 y -1 gestionan la energía y cuando pulsamos en turno añadimos la energía por el nuevo turno y cambiamos el turno.")
+    contenedor.appendChild(parrafo)
+    parrafo = crearElemento("P", "textContent", "En el histórico se va mostrando cada paso que da.")
+    contenedor.appendChild(parrafo)
+    document.getElementById("comoFunciono").appendChild(boton)
+    document.getElementById("comoFunciono").appendChild(contenedor)
 
 }
 
 function crearGestorEnergia() {
     let article = crearElemento("ARTICLE", "class", "container-energia")
-    let h2 = crearElemento("H2", "textContent", "Energia del rival")
+    let h2 = crearElemento("H2", "textContent", "Energía del rival")
     article.appendChild(h2)
-    let label = crearElemento("LABEL", "for", "energia", "textContent", "Energia: ")
+    let label = crearElemento("LABEL", "for", "energia", "textContent", "Energía: ")
     article.appendChild(label)
     let campo = crearElemento("INPUT", "type", "number", "value", "3", "id", "energia", "class", "energia", "disabled", "disabled")
     article.appendChild(campo)
@@ -57,7 +186,7 @@ function crearGestorEnergia() {
     div.appendChild(boton)
     boton = crearElemento("BUTTON", "type", "button", "id", "energiaMasUno", "textContent", "+ 1")
     div.appendChild(boton)
-    boton = crearElemento("BUTTON", "type", "button", "id", "sumarTurno", "textContent", "turno")
+    boton = crearElemento("BUTTON", "type", "button", "id", "sumarTurno", "textContent", "Turno")
     div.appendChild(boton)
     article.appendChild(div)
     document.getElementById("contenedorFlex").appendChild(article)
@@ -114,8 +243,8 @@ function crearTablaInicial() {
     fila.appendChild(crearElemento("TH", "textContent", "Carta y axie diferente", "colspan", 3, ))
     tabla.appendChild(fila)
     fila = crearElemento("TR")
-    fila.appendChild(crearElemento("TH"))
-    fila.appendChild(crearElemento("TH", "textContent", "Debil"))
+    fila.appendChild(crearElemento("TH", "textContent", "Carta"))
+    fila.appendChild(crearElemento("TH", "textContent", "Débil"))
     fila.appendChild(crearElemento("TH", "textContent", "Normal"))
     fila.appendChild(crearElemento("TH", "textContent", "Fuerte"))
     tabla.appendChild(fila)
@@ -134,7 +263,7 @@ function crearTablaInicial() {
     fila.appendChild(crearElemento("TH", "textContent", "Carta y axie igual", "colspan", 3, ))
     tabla.appendChild(fila)
     fila = crearElemento("TR")
-    fila.appendChild(crearElemento("TH", "textContent", "Debil "))
+    fila.appendChild(crearElemento("TH", "textContent", "Débil "))
     fila.appendChild(crearElemento("TH", "textContent", "Normal"))
     fila.appendChild(crearElemento("TH", "textContent", "Fuerte"))
     tabla.appendChild(fila)
@@ -299,20 +428,17 @@ function crearElemento(elemento, ...atributo) {
 }
 
 function crearGestorBotones() {
-
-
     let contenedor = crearElemento("DIV", "id", "cambiarBotones", "class", "div-oculto")
     let select = crearElemento("SELECT", "id", "botonesDano", "class", "margin")
-
     select.appendChild(crearOpcionesGestor())
     contenedor.appendChild(select)
-    let boton = crearElemento("BUTTON", "type", "button", "textContent", "Borrar Numero", "id", "borrarNumero", "class", "noPadding")
+    let boton = crearElemento("BUTTON", "type", "button", "textContent", "Borrar Número", "id", "borrarNumero", "class", "noPadding")
     contenedor.appendChild(boton)
     let salto = crearElemento("BR")
     contenedor.appendChild(salto)
     let campoTexto = crearElemento("INPUT", "type", "number", "id", "numeroAnadir", "class", "numeroAnadir")
     contenedor.appendChild(campoTexto)
-    boton = crearElemento("BUTTON", "type", "button", "textContent", "Añadir Numero", "id", "anadirNumero", "class", "noPadding")
+    boton = crearElemento("BUTTON", "type", "button", "textContent", "Añadir Número", "id", "anadirNumero", "class", "noPadding")
     contenedor.appendChild(boton)
     return contenedor
 }
@@ -501,7 +627,7 @@ function resetTabla() {
 
 function crearHistorico() {
     let article = crearElemento("ARTICLE", "class", "container-energia")
-    let h2 = crearElemento("H2", "textContent", "Historico")
+    let h2 = crearElemento("H2", "textContent", "Histórico")
     article.appendChild(h2)
     let p = crearElemento("P", "id", "historico", "textContent", "Turno: 1| 3;")
     article.appendChild(p)
@@ -514,6 +640,24 @@ function crearImg() {
     let img = crearElemento("IMG", "src", "img/clases-axies-axie-infinity.png", "alt", "Triangulo de fuerza axie")
     article.appendChild(img)
     document.getElementById("contenedorFlex").appendChild(article)
+}
 
+function cogerAltura(elemento) {
+    let estiloBase = window.getComputedStyle(elemento),
+        elementoDisplay = estiloBase.display,
+        elementoVisibilidad = estiloBase.visibility,
+        elementoAlturaMax = estiloBase.maxHeight,
+        alturaElemento = 0
 
+    elemento.style.transition = '0s'
+    elemento.style.visibility = 'hidden'
+    elemento.style.display = 'block'
+    elemento.style.maxHeight = '10000px'
+
+    alturaElemento = elemento.offsetHeight
+    elemento.style.maxHeight = elementoAlturaMax
+    setTimeout(() => elemento.style.transition = '.8s', 200)
+    elemento.style.display = elementoDisplay
+    elemento.style.visibility = elementoVisibilidad
+    return alturaElemento
 }

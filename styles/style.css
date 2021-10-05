@@ -19,7 +19,7 @@ h1 {
 }
 
 h2 {
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 label,
@@ -40,6 +40,11 @@ button {
     padding: 0.5rem;
     margin-left: 0.1rem;
     cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #8AA19E;
 }
 
 button:hover {
@@ -112,7 +117,19 @@ th {
 
 }
 
+.margen-abajo {
+    margin-bottom: 2em;
+}
 
+.desplegable {
+    transition: 0.8s;
+    max-height: 0px;
+    overflow: hidden;
+}
+
+.alto-0 {
+    height: 0px;
+}
 
 .energia,
 .turno {
@@ -155,6 +172,22 @@ th {
 
 .ancho-auto {
     max-width: 10rem;
+}
+
+.margen-auto {
+    margin: auto;
+}
+
+.interlineado {
+    line-height: 1.2em;
+}
+
+.interlineado-grande {
+    line-height: 1.4em;
+}
+
+#comoFunciono {
+    text-align: left;
 }
 
 @media screen and (max-width: 1100px) {
