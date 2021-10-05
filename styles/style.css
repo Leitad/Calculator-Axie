@@ -72,7 +72,10 @@ input[type=number] {
 }
 
 footer {
-    width: 100%;
+    padding: 0.2rem;
+    margin: 1em;
+    width: 90%;
+    width: calc(100% - 2em);
     position: absolute;
     bottom: 0;
     background-color: #8AA19E;
@@ -118,17 +121,17 @@ th {
 }
 
 .margen-abajo {
-    margin-bottom: 2em;
+    margin-left: 1.5em;
+    margin-bottom: 3em;
 }
 
 .desplegable {
     transition: 0.8s;
     max-height: 0px;
     overflow: hidden;
-}
-
-.alto-0 {
-    height: 0px;
+    margin-left: 3em;
+    margin-right: 3em;
+    margin-bottom: 1.5em;
 }
 
 .energia,
@@ -150,7 +153,6 @@ th {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-
 
 }
 
