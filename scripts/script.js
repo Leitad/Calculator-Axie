@@ -100,7 +100,7 @@ function crearExplicacion() {
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
-    texto2.textContent = "Luego tenemos opciones como Crit y +20% que son para los bonos, hay cartas que sabemos que van a hacer crítico o que van a tener estos bonos ya sea por buff o por que lo pone en la descripción, aquí faltaría añadir los -20% de el debufo o algunas otras especiales, pero tiempo al tiempo."
+    texto2.textContent = "A continuación tenemos opciones como Crit y +20% que son para los bonos, hay cartas que sabemos que van a hacer crítico o que van a tener estos bonos ya sea por buff o por que lo pone en la descripción, aquí faltaría añadir los -20% de el debufo o algunas otras especiales, pero tiempo al tiempo."
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
@@ -146,7 +146,7 @@ function crearExplicacion() {
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     contenedor.appendChild(parrafo)
-    parrafo = crearElemento("P", "textContent", "Luego tenemos una imagen con los tipos de axie y sus fortalezas y debilidades.")
+    parrafo = crearElemento("P", "textContent", "Después tenemos una imagen con los tipos de axie y sus fortalezas y debilidades.")
     contenedor.appendChild(parrafo)
     h3 = crearElemento("H3", "textContent", "Visualizador de energia.")
     contenedor.appendChild(h3)
