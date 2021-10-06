@@ -63,12 +63,13 @@ input[type=number] {
 }
 
 [type='number'],
-[type='text'] {
+[type='text'],
+select {
     background-color: #FFFFFF88;
     margin: 0;
     text-align: center;
     max-width: 100%;
-    border-color: #A19D91;
+    border: 2px solid #A19D91;
 }
 
 footer {
@@ -82,10 +83,20 @@ footer {
     left: 0;
 }
 
-.numeroAnadir {
+.numeroBorrar {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+}
+
+.numeroAnadir,
+.numeroBorrar {
     max-width: 4em;
     margin-top: 0.2em;
+    margin-right: 0.4em;
 }
+
+
 
 td,
 th {
@@ -164,9 +175,9 @@ th {
     color: transparent;
 }
 
-.margin {
+/* .margin {
     margin: 0.2em;
-}
+} */
 
 .div-oculto {
     display: none;
