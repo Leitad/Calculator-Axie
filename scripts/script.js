@@ -61,7 +61,11 @@ function crearExplicacion() {
     let parrafo = crearElemento("P", "textContent", texto)
     parrafo.appendChild(enlace)
     parrafo.appendChild(texto2)
-    // contenedor.appendChild(boton)
+    let contenedorIframe = crearElemento("DIV", "class", "contenedorIframe")
+    let iframe = crearElemento("IFRAME", "class", "tamanoIframe", "src", "https://www.youtube.com/embed/1hNE5Rx9T74", "tittle", "Video explicando cómo funciona", "frameborder", "0", "allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", "allowfullscreen", "allowfullscreen")
+    contenedorIframe.appendChild(iframe)
+    contenedor.appendChild(contenedorIframe)
+
     contenedor.appendChild(h3)
     contenedor.appendChild(parrafo)
     parrafo = crearElemento("P", "textContent", "Partiendo de aquí tendremos que seleccionar cual es el axie que ataca para poder añadir el daño por combo basado en la skill(tipo de atacante).")
@@ -654,7 +658,7 @@ function cogerAltura(elemento) {
     elemento.style.display = 'block'
     elemento.style.maxHeight = '10000px'
 
-    alturaElemento = elemento.offsetHeight
+    alturaElemento = elemento.offsetHeight + 20
     elemento.style.maxHeight = elementoAlturaMax
     setTimeout(() => elemento.style.transition = '.8s', 200)
     elemento.style.display = elementoDisplay
