@@ -11,6 +11,7 @@ body::-webkit-scrollbar-track {
     background: transparent;
 }
 
+/* revisar para cambiar el color*/
 body::-webkit-scrollbar-thumb {
     border-radius: 20px;
     border: 2px solid black;
@@ -95,6 +96,7 @@ footer {
     bottom: 0;
     background-color: #8AA19E;
     left: 0;
+    overflow-wrap: break-word;
 }
 
 .numeroBorrar {
@@ -163,6 +165,18 @@ th {
     height: 100%;
 }
 
+.boton-donar {
+    color: black;
+    border-color: black;
+    display: inline;
+    padding: 0.2rem;
+}
+
+.boton-donar:hover {
+    color: white;
+    border-color: white;
+}
+
 .margen-abajo {
     margin-left: 1.5em;
     margin-bottom: 3em;
@@ -199,6 +213,10 @@ th {
 
 }
 
+.padding-bottom-footer {
+    padding-bottom: 3rem;
+}
+
 .noPadding {
     padding: 0 0.5rem;
 }
@@ -225,6 +243,10 @@ th {
 
 .interlineado {
     line-height: 1.2em;
+}
+
+.display-inline {
+    display: inline;
 }
 
 .interlineado-grande {
@@ -264,5 +286,9 @@ th {
     .contenedorIframe {
         padding-bottom: 56.25%;
         width: 100%;
+    }
+
+    .padding-bottom-footer {
+        padding-bottom: 7rem;
     }
 }

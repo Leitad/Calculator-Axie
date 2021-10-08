@@ -30,6 +30,7 @@ function loadGeneral() {
 
     desplegable = document.getElementById("contenedorExplicacion")
     desplegableBoton = document.getElementById("mostrarComoFunciona")
+
     tamanodesplegable = cogerAltura(desplegable) + 'px'
     window.addEventListener('resize', () => {
         tamanodesplegable = cogerAltura(desplegable) + 'px'
@@ -42,10 +43,20 @@ function loadGeneral() {
             setTimeout(() => tamanodesplegable = window.getComputedStyle(desplegable).height, 800)
         } else {
             desplegable.style.maxHeight = "0px"
+
         }
         desplegableBoton.disabled = true
         setTimeout(() => desplegableBoton.disabled = false, 800)
     })
+    document.getElementById("copiar").addEventListener("click", copiarDireccionMetamask)
+}
+
+function copiarDireccionMetamask() {
+    let direccionMetamask = crearElemento("INPUT", "value", "0x250C0E02bC797a044dC40FFe5c7deA15bC1a4035")
+    document.body.appendChild(direccionMetamask)
+    direccionMetamask.select()
+    document.execCommand("copy");
+    document.body.removeChild(direccionMetamask)
 }
 
 function crearExplicacion() {
@@ -658,7 +669,8 @@ function cogerAltura(elemento) {
     elemento.style.display = 'block'
     elemento.style.maxHeight = '10000px'
 
-    alturaElemento = elemento.offsetHeight + 20
+
+    alturaElemento = elemento.offsetHeight
     elemento.style.maxHeight = elementoAlturaMax
     setTimeout(() => elemento.style.transition = '.8s', 200)
     elemento.style.display = elementoDisplay
