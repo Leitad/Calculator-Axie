@@ -226,14 +226,6 @@ th {
     color: transparent;
 }
 
-/* .margin {
-    margin: 0.2em;
-} */
-
-/* .div-oculto {
-    display: none;
-} */
-
 .display-none {
     display: none;
 }
@@ -246,6 +238,11 @@ th {
     margin: auto;
 }
 
+.centrar-alto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .interlineado {
     line-height: 1.2em;
 }
@@ -253,6 +250,8 @@ th {
 .display-inline {
     display: inline;
 }
+
+
 
 .interlineado-grande {
     line-height: 1.4em;

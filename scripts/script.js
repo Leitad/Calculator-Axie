@@ -1,6 +1,6 @@
 let arrayValoresBotones,
     skillaxie = 31,
-    historico, desplegable, desplegableBoton, tamanodesplegable
+    historico, desplegable, desplegableBoton, tamanodesplegable, bonosDano
 
 window.addEventListener("load", loadGeneral)
 
@@ -17,7 +17,19 @@ function loadGeneral() {
             115
         ]
     }
+    if (localStorage.bonosDano != undefined) {
+        bonosDano = JSON.parse(localStorage.bonosDano)
+    } else {
+        bonosDano = {
+            debuff: false,
+            debuff2: false,
+            critico: true,
+            potenciado: true,
+            potenciado2: false
+        }
+    }
     crearTablaInicial()
+    //   toggleBonosDano()
     funcionesTabla()
     let botonTipo = document.getElementsByName("tipoAtaca")
     for (let i = 0; i < botonTipo.length; i++) {
@@ -39,6 +51,16 @@ function loadGeneral() {
     desplegableBoton.addEventListener('click', desplegarFunciona)
     document.getElementById("copiar").addEventListener("click", copiarDireccionMetamask)
 }
+
+// function toggleBonosDano() {
+//     for (valor in bonosDano) {
+//         if (bonosDano[valor]) {
+//             document.getElementById(valor).checked = true
+//         } else {
+//             document.getElementById(valor).checked = false
+//         }
+//     }
+// }
 
 function desplegarFunciona() {
     if (window.getComputedStyle(desplegable).height == "0px") {
@@ -113,7 +135,7 @@ function generarEventoTabla() {
 function funcionesTabla() {
 
     anadirFuncionBotonera()
-    document.getElementById("mostrarGestorNumeros").addEventListener("click", mostrarGestorNumeros)
+    document.getElementById("mostrarOpcionesTabla").addEventListener("click", mostrarOpcionesTabla)
     document.getElementById("borrarNumero").addEventListener("click", borrarNumero)
     document.getElementById("anadirNumero").addEventListener("click", anadirNumero)
     for (i = 1; i < 5; i++) {
@@ -140,6 +162,33 @@ function funcionesTabla() {
         document.getElementById(i + "Total").parentNode.textContent = ""
     }
 
+    for (valor in bonosDano) {
+        let aux = document.getElementById(valor),
+            clase = document.getElementsByClassName(valor)
+        if (bonosDano[valor]) {
+            aux.checked = true
+        } else {
+            aux.checked = false
+            for (let i = 0; i < clase.length; i++)
+                clase[i].classList.add("display-none")
+        }
+        aux.addEventListener("change", toggleCheckbox)
+
+    }
+}
+
+function toggleCheckbox() {
+    let idcambiar = this.id,
+        clase = document.getElementsByClassName(idcambiar)
+    for (let i = 0; i < clase.length; i++)
+        clase[i].classList.toggle("display-none")
+    if (bonosDano[idcambiar]) {
+        bonosDano[idcambiar] = false
+    } else {
+        bonosDano[idcambiar] = true
+
+    }
+    localStorage.bonosDano = JSON.stringify(bonosDano)
 }
 
 function anadirFuncionBotonera() {
@@ -153,12 +202,12 @@ function anadirFuncionBotonera() {
 
 }
 
-function mostrarGestorNumeros() {
+function mostrarOpcionesTabla() {
     document.getElementById("cambiarBotones").classList.toggle("display-none")
-    if (this.textContent == "Mostrar Gestión de Números")
-        this.textContent = "Ocultar Gestión de Números"
+    if (this.textContent == "Mostrar Opciones de la Tabla")
+        this.textContent = "Ocultar Opciones de la Tabla"
     else
-        this.textContent = "Mostrar Gestión de Números"
+        this.textContent = "Mostrar Opciones de la Tabla"
 }
 
 function contenidoTablaBotonera() {
