@@ -118,12 +118,16 @@ function funcionesTabla() {
     document.getElementById("anadirNumero").addEventListener("click", anadirNumero)
     for (i = 1; i < 5; i++) {
         document.getElementById("base" + i).addEventListener("keyup", calcularFilas)
+        document.getElementById("checkboxDebuff" + i).addEventListener("change", calcularFilas)
+        document.getElementById("checkboxDebuff2" + i).addEventListener("change", calcularFilas)
         document.getElementById("checkboxPotenciado" + i).addEventListener("change", calcularFilas)
         document.getElementById("checkboxPotenciado2" + i).addEventListener("change", calcularFilas)
         document.getElementById("checkboxCritico" + i).addEventListener("change", calcularFilas)
         document.getElementById("reset" + i).addEventListener('click', resetFila)
 
     }
+    document.getElementById("checkboxDebuffTotal").parentNode.textContent = ""
+    document.getElementById("checkboxDebuff2Total").parentNode.textContent = ""
     document.getElementById("baseTotal").parentNode.textContent = ""
     document.getElementById("checkboxPotenciadoTotal").parentNode.textContent = ""
     document.getElementById("checkboxPotenciado2Total").parentNode.textContent = ""
@@ -150,7 +154,7 @@ function anadirFuncionBotonera() {
 }
 
 function mostrarGestorNumeros() {
-    document.getElementById("cambiarBotones").classList.toggle("div-oculto")
+    document.getElementById("cambiarBotones").classList.toggle("display-none")
     if (this.textContent == "Mostrar Gestión de Números")
         this.textContent = "Ocultar Gestión de Números"
     else
@@ -251,9 +255,11 @@ function crearOpcionesGestor() {
 function calcularFilas() {
     let numeroDeFila = this.id.slice(this.id.length - 1)
     let posicion,
-        checkboxPotenciado, valorCeldaNormal, checkboxCritico
+        checkboxPotenciado, valorCeldaNormal, checkboxCritico, checkboxPotenciado2, checkboxDebuff, checkboxDebuff2
     posicion = document.getElementById(`base${numeroDeFila}`)
     valorCeldaNormal = posicion.value
+    checkboxDebuff = document.getElementById(`checkboxDebuff${numeroDeFila}`).checked
+    checkboxDebuff2 = document.getElementById(`checkboxDebuff2${numeroDeFila}`).checked
     checkboxCritico = document.getElementById(`checkboxCritico${numeroDeFila}`).checked
     checkboxPotenciado = document.getElementById(`checkboxPotenciado${numeroDeFila}`).checked
     checkboxPotenciado2 = document.getElementById(`checkboxPotenciado2${numeroDeFila}`).checked
@@ -264,7 +270,12 @@ function calcularFilas() {
         debTipo = debil * 1.1,
         fueTipo = fuerte * 1.1,
         arrayvalores = [normal, debil, fuerte, normTipo, debTipo, fueTipo]
-
+    if (checkboxDebuff) {
+        arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 0.8)
+    }
+    if (checkboxDebuff2) {
+        arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 0.8)
+    }
     if (checkboxPotenciado) {
         arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 1.2)
     }

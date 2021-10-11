@@ -214,7 +214,7 @@ function crearTablaInicial() {
     let boton = crearElemento("BUTTON", "type", "button", "textContent", "Mostrar Gestión de Números", "id", "mostrarGestorNumeros")
     document.getElementById("mostrarGestorBotones").appendChild(boton)
 
-    contenedor = crearElemento("DIV", "id", "cambiarBotones", "class", "div-oculto")
+    contenedor = crearElemento("DIV", "id", "cambiarBotones", "class", "display-none")
     let select = crearElemento("SELECT", "id", "botonesDano", "class", "numeroBorrar")
     contenedor.appendChild(select)
     boton = crearElemento("BUTTON", "type", "button", "textContent", "Borrar Número", "id", "borrarNumero", "class", "noPadding")
@@ -279,22 +279,41 @@ function crearFilaIgual(numerofila) {
 function crearFilaCheckBox(numerofila) {
     let fila = crearElemento("TR"),
         campo, contenidocolumna, label
-    let nombreEId = "checkboxCritico" + numerofila
-    campo = crearElemento("TD")
+    let nombreEId = "checkboxDebuff" + numerofila
+    let tablaClass = "debuff"
+    campo = crearElemento("TD", "class", tablaClass)
+    contenidocolumna = crearElemento("INPUT", "type", "checkbox", "name", nombreEId, "id", nombreEId)
+    label = crearElemento("LABEL", "textContent", "-20%", "for", nombreEId)
+    campo.appendChild(contenidocolumna)
+    campo.appendChild(label)
+    fila.appendChild(campo)
+    nombreEId = "checkboxDebuff2" + numerofila
+    tablaClass = "debuff2"
+    campo = crearElemento("TD", "class", tablaClass)
+    contenidocolumna = crearElemento("INPUT", "type", "checkbox", "name", nombreEId, "id", nombreEId)
+    label = crearElemento("LABEL", "textContent", "-20%", "for", nombreEId)
+    campo.appendChild(contenidocolumna)
+    campo.appendChild(label)
+    fila.appendChild(campo)
+    nombreEId = "checkboxCritico" + numerofila
+    tablaClass = "camposCritico"
+    campo = crearElemento("TD", "class", tablaClass)
     contenidocolumna = crearElemento("INPUT", "type", "checkbox", "name", nombreEId, "id", nombreEId)
     label = crearElemento("LABEL", "textContent", "Crit", "for", nombreEId)
     campo.appendChild(contenidocolumna)
     campo.appendChild(label)
     fila.appendChild(campo)
     nombreEId = "checkboxPotenciado" + numerofila
-    campo = crearElemento("TD")
+    tablaClass = "potenciado"
+    campo = crearElemento("TD", "class", tablaClass)
     contenidocolumna = crearElemento("INPUT", "type", "checkbox", "name", nombreEId, "id", nombreEId)
     label = crearElemento("LABEL", "textContent", "+20%", "for", nombreEId)
     campo.appendChild(contenidocolumna)
     campo.appendChild(label)
     fila.appendChild(campo)
     nombreEId = "checkboxPotenciado2" + numerofila
-    campo = crearElemento("TD")
+    tablaClass = "potenciado2"
+    campo = crearElemento("TD", "class", tablaClass)
     contenidocolumna = crearElemento("INPUT", "type", "checkbox", "name", nombreEId, "id", nombreEId)
     label = crearElemento("LABEL", "textContent", "+20%", "for", nombreEId)
     campo.appendChild(contenidocolumna)

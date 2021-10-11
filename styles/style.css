@@ -230,7 +230,11 @@ th {
     margin: 0.2em;
 } */
 
-.div-oculto {
+/* .div-oculto {
+    display: none;
+} */
+
+.display-none {
     display: none;
 }
 
