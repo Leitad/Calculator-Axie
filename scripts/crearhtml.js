@@ -156,9 +156,9 @@ function crearTablaInicial() {
     tabla.appendChild(fila)
     fila = crearElemento("TR")
     fila.appendChild(crearElemento("TH", "textContent", "Carta"))
-    fila.appendChild(crearElemento("TH", "textContent", "Débil"))
-    fila.appendChild(crearElemento("TH", "textContent", "Normal"))
-    fila.appendChild(crearElemento("TH", "textContent", "Fuerte"))
+    fila.appendChild(crearElemento("TH", "textContent", "Débil", "id", "debil"))
+    fila.appendChild(crearElemento("TH", "textContent", "Normal", "id", "normal"))
+    fila.appendChild(crearElemento("TH", "textContent", "Fuerte", "id", "fuerte"))
     tabla.appendChild(fila)
     tabla.appendChild(crearFilaDiferente("1"))
     tabla.appendChild(crearFilaDiferente("2"))
@@ -175,9 +175,9 @@ function crearTablaInicial() {
     fila.appendChild(crearElemento("TH", "textContent", "Carta y axie igual", "colspan", 3, ))
     tabla.appendChild(fila)
     fila = crearElemento("TR")
-    fila.appendChild(crearElemento("TH", "textContent", "Débil "))
-    fila.appendChild(crearElemento("TH", "textContent", "Normal"))
-    fila.appendChild(crearElemento("TH", "textContent", "Fuerte"))
+    fila.appendChild(crearElemento("TH", "textContent", "Débil", "id", "debTipo"))
+    fila.appendChild(crearElemento("TH", "textContent", "Normal", "id", "normTipo"))
+    fila.appendChild(crearElemento("TH", "textContent", "Fuerte", "id", "fueTipo"))
     tabla.appendChild(fila)
     tabla.appendChild(crearFilaIgual("1"))
     tabla.appendChild(crearFilaIgual("2"))
@@ -211,6 +211,8 @@ function crearTablaInicial() {
     article.appendChild(contenedor)
     document.getElementById("contenedorTabla").appendChild(article)
 
+
+
     let boton = crearElemento("BUTTON", "type", "button", "textContent", "Mostrar Opciones de la Tabla", "id", "mostrarOpcionesTabla")
     document.getElementById("mostrarGestorBotones").appendChild(boton)
 
@@ -227,7 +229,6 @@ function crearTablaInicial() {
     boton = crearElemento("BUTTON", "type", "button", "textContent", "Añadir Número", "id", "anadirNumero", "class", "noPadding")
     contenedor2.appendChild(boton)
     contenedor.appendChild(contenedor2)
-
     contenedor2 = crearElemento("DIV", "class", "centrar-alto")
     let checkbox = crearElemento("INPUT", "type", "checkbox", "id", "debuff")
     let label = crearElemento("LABEL", "for", "debuff", "textContent", "-20%")
@@ -249,6 +250,11 @@ function crearTablaInicial() {
     label = crearElemento("LABEL", "for", "potenciado2", "textContent", "+20%")
     contenedor2.appendChild(checkbox)
     contenedor2.appendChild(label)
+    contenedor2.appendChild(label)
+    checkbox = crearElemento("INPUT", "type", "checkbox", "id", "totalSeleccionado")
+    label = crearElemento("LABEL", "for", "totalSeleccionado", "textContent", "Total Seleccionado")
+    contenedor2.appendChild(checkbox)
+    contenedor2.appendChild(label)
 
     contenedor.appendChild(contenedor2)
 
@@ -265,17 +271,17 @@ function crearFilaDiferente(numerofila) {
     fila.appendChild(campo)
     nombreEId = "debil" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "readonly", "readonly", "class", "focus-disabled")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "normal" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "readonly", "readonly", "class", "focus-disabled")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "fuerte" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "readonly", "readonly", "class", "focus-disabled")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     return fila
@@ -286,17 +292,17 @@ function crearFilaIgual(numerofila) {
         campo, contenidocolumna
     let nombreEId = "debTipo" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "readonly", "readonly", "class", "focus-disabled")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "normTipo" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "readonly", "readonly", "class", "focus-disabled")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     nombreEId = "fueTipo" + numerofila
     campo = crearElemento("TD")
-    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "disabled", "disabled")
+    contenidocolumna = crearElemento("INPUT", "type", "number", "name", nombreEId, "id", nombreEId, "value", 0, "readonly", "readonly", "class", "focus-disabled")
     campo.appendChild(contenidocolumna)
     fila.appendChild(campo)
     return fila

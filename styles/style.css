@@ -202,6 +202,16 @@ th {
     height: 2rem;
 }
 
+.danoSeleccionado {
+    font-size: 1.5em;
+    display: inline-block;
+    background-color: #8AA19E;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    min-width: 1.8em;
+    border-radius: 4em;
+}
+
 .energia:disabled,
 .turno:disabled {
     color: black;
@@ -251,7 +261,13 @@ th {
     display: inline;
 }
 
+.seleccionado {
+    border-color: blue;
+}
 
+.focus-disabled:focus {
+    outline: none;
+}
 
 .interlineado-grande {
     line-height: 1.4em;

@@ -1,6 +1,6 @@
 let arrayValoresBotones,
     skillaxie = 31,
-    historico, desplegable, desplegableBoton, tamanodesplegable, bonosDano
+    historico, desplegable, desplegableBoton, tamanodesplegable, bonosDano, totalSeleccionado
 
 window.addEventListener("load", loadGeneral)
 
@@ -28,8 +28,11 @@ function loadGeneral() {
             potenciado2: false
         }
     }
+    if (localStorage.totalSeleccionado != "false")
+        totalSeleccionado = Boolean(localStorage.totalSeleccionado)
+    else
+        totalSeleccionado = false
     crearTablaInicial()
-    //   toggleBonosDano()
     funcionesTabla()
     let botonTipo = document.getElementsByName("tipoAtaca")
     for (let i = 0; i < botonTipo.length; i++) {
@@ -52,15 +55,7 @@ function loadGeneral() {
     document.getElementById("copiar").addEventListener("click", copiarDireccionMetamask)
 }
 
-// function toggleBonosDano() {
-//     for (valor in bonosDano) {
-//         if (bonosDano[valor]) {
-//             document.getElementById(valor).checked = true
-//         } else {
-//             document.getElementById(valor).checked = false
-//         }
-//     }
-// }
+
 
 function desplegarFunciona() {
     if (window.getComputedStyle(desplegable).height == "0px") {
@@ -133,48 +128,114 @@ function generarEventoTabla() {
 }
 
 function funcionesTabla() {
-
     anadirFuncionBotonera()
     document.getElementById("mostrarOpcionesTabla").addEventListener("click", mostrarOpcionesTabla)
     document.getElementById("borrarNumero").addEventListener("click", borrarNumero)
     document.getElementById("anadirNumero").addEventListener("click", anadirNumero)
-    for (i = 1; i < 5; i++) {
-        document.getElementById("base" + i).addEventListener("keyup", calcularFilas)
-        document.getElementById("checkboxDebuff" + i).addEventListener("change", calcularFilas)
-        document.getElementById("checkboxDebuff2" + i).addEventListener("change", calcularFilas)
-        document.getElementById("checkboxPotenciado" + i).addEventListener("change", calcularFilas)
-        document.getElementById("checkboxPotenciado2" + i).addEventListener("change", calcularFilas)
-        document.getElementById("checkboxCritico" + i).addEventListener("change", calcularFilas)
-        document.getElementById("reset" + i).addEventListener('click', resetFila)
 
+    for (let i = 1; i < 5; i++) {
+        document.getElementById("base" + i).addEventListener("keyup", calcularFilas)
+        let aux = ["checkboxDebuff", "checkboxDebuff2", "checkboxPotenciado", "checkboxPotenciado2", "checkboxCritico"]
+        for (let j = 0; j < aux.length; j++)
+            document.getElementById(aux[j] + i).addEventListener("change", calcularFilas)
+        aux = ["normal", "debil", "fuerte", "normTipo", "debTipo", "fueTipo"]
+        for (let j = 0; j < aux.length; j++)
+            document.getElementById(aux[j] + i).addEventListener("click", cambiarSeleccionado)
+        document.getElementById("reset" + i).addEventListener('click', resetFila)
     }
+    aux = ["normal", "debil", "fuerte", "normTipo", "debTipo", "fueTipo"]
+    for (let i = 0; i < aux.length; i++)
+        document.getElementById(aux[i]).addEventListener("click", seleccionarColumna)
     document.getElementById("checkboxDebuffTotal").parentNode.textContent = ""
     document.getElementById("checkboxDebuff2Total").parentNode.textContent = ""
     document.getElementById("baseTotal").parentNode.textContent = ""
     document.getElementById("checkboxPotenciadoTotal").parentNode.textContent = ""
     document.getElementById("checkboxPotenciado2Total").parentNode.textContent = ""
-
     document.getElementById("checkboxCriticoTotal").parentNode.textContent = ""
-
-
     document.getElementById("resetTotal").parentNode.textContent = ""
     for (i = 0; i < arrayValoresBotones.length; i++) {
         document.getElementById(i + "Total").parentNode.textContent = ""
     }
-
     for (valor in bonosDano) {
         let aux = document.getElementById(valor),
             clase = document.getElementsByClassName(valor)
         if (bonosDano[valor]) {
             aux.checked = true
         } else {
-            aux.checked = false
             for (let i = 0; i < clase.length; i++)
                 clase[i].classList.add("display-none")
         }
         aux.addEventListener("change", toggleCheckbox)
-
     }
+    let elementoTotalSeleccionado = document.getElementById("totalSeleccionado")
+    let campoTotalSeleccionado = document.getElementById("resultadoTotalSeleccionado")
+    if (totalSeleccionado) {
+        elementoTotalSeleccionado.checked = true
+        for (let i = 1; i < 5; i++) {
+            document.getElementById("debil" + i).classList.add("seleccionado")
+        }
+        calcularSeleccionado()
+    } else {
+        console.log(campoTotalSeleccionado);
+        campoTotalSeleccionado.classList.add("display-none")
+    }
+    elementoTotalSeleccionado.addEventListener("change", toggleTotalSeleccionado)
+
+}
+
+function seleccionarColumna() {
+    console.log(this.id)
+    let seleccionado = document.getElementsByClassName("seleccionado")
+    for (let i = 3; i > -1; i--) {
+        seleccionado[i].classList.remove("seleccionado")
+    }
+    for (let i = 1; i < 5; i++) {
+        document.getElementById(this.id + i).classList.add("seleccionado")
+    }
+}
+
+function cambiarSeleccionado() {
+    if (document.getElementById("totalSeleccionado").checked) {
+        let fila = this.id.slice(-1)
+        let aux = ["normal", "debil", "fuerte", "normTipo", "debTipo", "fueTipo"]
+        for (let i = 0; i < aux.length; i++) {
+            if (document.getElementById(aux[i] + fila).classList.contains("seleccionado")) {
+                document.getElementById(aux[i] + fila).classList.remove("seleccionado")
+                break
+            }
+        }
+        this.classList.add("seleccionado")
+        calcularSeleccionado()
+    }
+    console.log(this);
+}
+
+function toggleTotalSeleccionado() {
+    let campoTotalSeleccionado = document.getElementById("resultadoTotalSeleccionado")
+    campoTotalSeleccionado.classList.toggle("display-none")
+    if (campoTotalSeleccionado.classList.contains("display-none")) {
+        localStorage.totalSeleccionado = false
+        let seleccionado = document.getElementsByClassName("seleccionado")
+        for (let i = 3; i > -1; i--) {
+            seleccionado[i].classList.remove("seleccionado")
+        }
+    } else {
+        localStorage.totalSeleccionado = true
+        for (let i = 1; i < 5; i++) {
+            document.getElementById("debil" + i).classList.add("seleccionado")
+        }
+        calcularSeleccionado()
+    }
+
+}
+
+function calcularSeleccionado() {
+    let seleccionado = document.getElementsByClassName("seleccionado"),
+        valorSeleccionado = 0
+    for (let i = 0; i < seleccionado.length; i++) {
+        valorSeleccionado += Number(seleccionado[i].value)
+    }
+    document.getElementById("resultadoTotalSeleccionado").textContent = valorSeleccionado
 }
 
 function toggleCheckbox() {
@@ -304,7 +365,7 @@ function crearOpcionesGestor() {
 function calcularFilas() {
     let numeroDeFila = this.id.slice(this.id.length - 1)
     let posicion,
-        checkboxPotenciado, valorCeldaNormal, checkboxCritico, checkboxPotenciado2, checkboxDebuff, checkboxDebuff2
+        checkboxPotenciado, valorCeldaNormal, checkboxCritico, checkboxPotenciado2, checkboxDebuff, checkboxDebuff2, valorSeleccionado = document.getElementById("totalSeleccionado").checked
     posicion = document.getElementById(`base${numeroDeFila}`)
     valorCeldaNormal = posicion.value
     checkboxDebuff = document.getElementById(`checkboxDebuff${numeroDeFila}`).checked
@@ -339,6 +400,8 @@ function calcularFilas() {
     for (let i = 0; i < arrayTabla.length; i++) {
         document.getElementById(arrayTabla[i] + numeroDeFila).value = arrayvalores[i]
     }
+    if (valorSeleccionado)
+        calcularSeleccionado()
     calcularTotales()
 }
 
