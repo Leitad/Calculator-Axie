@@ -176,7 +176,6 @@ function funcionesTabla() {
         }
         calcularSeleccionado()
     } else {
-        console.log(campoTotalSeleccionado);
         campoTotalSeleccionado.classList.add("display-none")
     }
     elementoTotalSeleccionado.addEventListener("change", toggleTotalSeleccionado)
@@ -184,7 +183,6 @@ function funcionesTabla() {
 }
 
 function seleccionarColumna() {
-    console.log(this.id)
     let seleccionado = document.getElementsByClassName("seleccionado")
     for (let i = 3; i > -1; i--) {
         seleccionado[i].classList.remove("seleccionado")
@@ -207,7 +205,6 @@ function cambiarSeleccionado() {
         this.classList.add("seleccionado")
         calcularSeleccionado()
     }
-    console.log(this);
 }
 
 function toggleTotalSeleccionado() {

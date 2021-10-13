@@ -53,7 +53,11 @@ function crearExplicacion() {
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
-    texto2.textContent = "A continuación tenemos opciones como Crit y +20% que son para los bonos, hay cartas que sabemos que van a hacer crítico o que van a tener estos bonos ya sea por buff o por que lo pone en la descripción, aquí faltaría añadir los -20% de el debufo o algunas otras especiales, pero tiempo al tiempo."
+    texto2.textContent = "A continuación tenemos opciones como -20%, Crit y +20% que son para los bonos, hay cartas que sabemos que van a hacer crítico o que van a tener estos bonos ya sea por buff o por que lo pone en la descripción, en las opciones de abajo podemos cambiar que campos se muestran aqui."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "-20%: Penalizaciones en el ataque."
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
@@ -81,7 +85,7 @@ function crearExplicacion() {
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     contenedor.appendChild(parrafo)
-    parrafo = crearElemento("P", "textContent", "Mostrar Gestión de Números:Muestra campos para añadir y borrar los botones de la tabla.", "class", "interlineado-grande")
+    parrafo = crearElemento("P", "textContent", "Mostrar Opciones de la Tabla:Muestra campos para añadir y ocultar a la tabla.", "class", "interlineado-grande")
     salto = crearElemento("br")
     texto2.textContent = "Esto quedará guardado en vuestro navegador, así que si formateas,  borras cache, cambias de ordenador... y ese tipo de cosas esto será reiniciado y volverá a los valores iniciales."
     parrafo.appendChild(salto)
@@ -92,6 +96,14 @@ function crearExplicacion() {
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
     texto2.textContent = "Si por el contrario queremos añadir otros valores debemos hacerlo introduciendo el valor en el siguiente campo y apretar en Añadir Número."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "En los Checbox que tenemos aqui tambien podemos cambiar los botones de -20%,crit y +20% y solo mostrar los que nos interesan."
+    parrafo.appendChild(salto)
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    texto2.textContent = "El último campo de este listado permite mostrar un nuevo campo para poder calcular los daños de un axie que tenga cartas de diferentes tipos. Hay dos tipos de selección pulsando encima del título de la tabla y los selecciona toda la columna o pinchando sobre el campo que nos interese que calcule"
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
