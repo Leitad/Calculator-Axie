@@ -99,6 +99,14 @@ footer {
     overflow-wrap: break-word;
 }
 
+td,
+th {
+    margin: 0.2em;
+    max-width: 4em;
+    border: inherit;
+    border-radius: inherit;
+}
+
 .numeroBorrar {
     width: 100%;
     margin: 0;
@@ -110,14 +118,6 @@ footer {
     max-width: 4em;
     margin-top: 0.2em;
     margin-right: 0.4em;
-}
-
-
-
-td,
-th {
-    margin: 0.2em;
-    max-width: 4em;
 }
 
 .container-1400 {
@@ -157,6 +157,12 @@ th {
     margin: auto;
 }
 
+.cantidadCartas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .tamanoIframe {
     position: absolute;
     top: 0;
@@ -192,8 +198,7 @@ th {
     margin-bottom: 1.5em;
 }
 
-.energia,
-.turno {
+.energia {
     border: none;
     background-color: #8AA19E;
     border-radius: 1rem;
@@ -212,8 +217,7 @@ th {
     border-radius: 4em;
 }
 
-.energia:disabled,
-.turno:disabled {
+.energia:disabled {
     color: black;
 }
 
@@ -271,6 +275,27 @@ th {
 
 .interlineado-grande {
     line-height: 1.4em;
+}
+
+.ancho-tabla {
+    min-width: 3rem;
+}
+
+.tabla-tipo-1,
+.tabla-tipo-2 {
+    background-color: #8AA19E;
+    border: 1px solid;
+    margin: 0.3rem;
+    border-spacing: 0px;
+}
+
+.tabla-tipo-2 {
+    background-color: #A19D91;
+}
+
+.tabla-borde {
+    border: 1px solid;
+    border-radius: 0px;
 }
 
 #comoFunciono {

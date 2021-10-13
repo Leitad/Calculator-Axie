@@ -42,7 +42,141 @@
             </article>
             <artcile id="resultadoTotalSeleccionado" class="danoSeleccionado"></artcile>
             <article id="mostrarGestorBotones"></article>
-            <div id="contenedorFlex" class="flex"></div>
+            <div id="contenedorFlex" class="flex">
+            </div>
+            <article id="tablaCartas" class="display-none">
+                <div class="flex">
+                    <table class="tabla-tipo-1">
+                        <tr>
+                            <th colspan="4" class="tabla-borde">Front</th>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Posición</td>
+                            <td>E</td>
+                            <td class="ancho-tabla">1</td>
+                            <td class="ancho-tabla">2</td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Boca</td>
+                            <td><input type="checkbox" name="frontBoca" id="frontBoca" checked></td>
+                            <td id="frontBoca1"></td>
+                            <td id="frontBoca2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Cuerno</td>
+                            <td><input type="checkbox" name="frontCuerno" id="frontCuerno" checked></td>
+                            <td id="frontCuerno1"></td>
+                            <td id="frontCuerno2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Espalda</td>
+                            <td><input type="checkbox" name="frontEspalda" id="frontEspalda" checked></td>
+                            <td id="frontEspalda1"></td>
+                            <td id="frontEspalda2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Cola</td>
+                            <td><input type="checkbox" name="frontCola" id="frontCola" checked></td>
+                            <td id="frontCola1"></td>
+                            <td id="frontCola2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <th colspan="4"><input type="checkbox" name="frontMuerto" id="frontMuerto"><label
+                                    for="frontMuerto">Muerto</label></th>
+                        </tr>
+                    </table>
+                    <table class="tabla-tipo-2">
+                        <tr class="tabla-borde">
+                            <th colspan="4">Mid</th>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Posición</td>
+                            <td>E</td>
+                            <td class="ancho-tabla">1</td>
+                            <td class="ancho-tabla">2</td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Boca</td>
+                            <td><input type="checkbox" name="midBoca" id="midBoca" checked></td>
+                            <td id="midBoca1"></td>
+                            <td id="midBoca2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Cuerno</td>
+                            <td><input type="checkbox" name="midCuerno" id="midCuerno" checked></td>
+                            <td id="midCuerno1"></td>
+                            <td id="midCuerno2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Espalda</td>
+                            <td><input type="checkbox" name="midEspalda" id="midEspalda" checked></td>
+                            <td id="midEspalda1"></td>
+                            <td id="midEspalda2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Cola</td>
+                            <td><input type="checkbox" name="midCola" id="midCola" checked></td>
+                            <td id="midCola1"></td>
+                            <td id="midCola2"></td>
+                        </tr>
+                        <th colspan="4"><input type="checkbox" name="midMuerto" id="midMuerto"><label
+                                for="midMuerto">Muerto</label></th>
+
+                    </table>
+
+                    <table class="tabla-tipo-1">
+                        <tr class="tabla-borde">
+                            <th colspan="4">Back</th>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Posición</td>
+                            <td>E</td>
+                            <td class="ancho-tabla">1</td>
+                            <td class="ancho-tabla">2</td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Boca</td>
+                            <td><input type="checkbox" name="backBoca" id="backBoca" checked></td>
+                            <td id="backBoca1"></td>
+                            <td id="backBoca2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Cuerno</td>
+                            <td><input type="checkbox" name="backCuerno" id="backCuerno" checked></td>
+                            <td id="backCuerno1"></td>
+                            <td id="backCuerno2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Espalda</td>
+                            <td><input type="checkbox" name="backEspalda" id="backEspalda" checked></td>
+                            <td id="backEspalda1"></td>
+                            <td id="backEspalda2"></td>
+                        </tr>
+                        <tr class="tabla-borde">
+                            <td>Cola</td>
+                            <td><input type="checkbox" name="backCola" id="backCola" checked></td>
+                            <td id="backCola1"></td>
+                            <td id="backCola2"></td>
+                        </tr>
+                        <th colspan="4"><input type="checkbox" name="backMuerto" id="backMuerto"><label
+                                for="backMuerto">Muerto</label></th>
+
+                    </table>
+                    <br>
+                </div>
+                <div id="contadorCartas" class="cantidadCartas">
+                    <label for="cartas">Cartas: </label>
+                    <input type="number" value="6" id="cartas" class="energia" disabled="disabled">
+                    <span style="font-size: 2.5rem;">/</span>
+                    <input type="number" value="24" id="cartasMaximas" class="energia" disabled="disabled">
+                    <button type="button" id="cartasMasUno">+1</button>
+                    <button type="button" id="restablecerCartas">Restablecer</button>
+
+                </div>
+            </article>
+            <article id="mostrarOpcionesEnergia">
+                <button type="button" id="cambiarModoEnergia">Cambiar a Avanzado</button>
+            </article>
             <article id="comoFunciono" class="padding-bottom-footer"></article>
         </main>
         <footer>

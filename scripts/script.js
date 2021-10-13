@@ -1,6 +1,7 @@
 let arrayValoresBotones,
     skillaxie = 31,
-    historico, desplegable, desplegableBoton, tamanodesplegable, bonosDano, totalSeleccionado
+    historico, desplegable, desplegableBoton, tamanodesplegable, bonosDano, totalSeleccionado, cartasUsadas = 0,
+    avanzado
 
 window.addEventListener("load", loadGeneral)
 
@@ -29,9 +30,13 @@ function loadGeneral() {
         }
     }
     if (localStorage.totalSeleccionado != "false")
-        totalSeleccionado = Boolean(localStorage.totalSeleccionado)
+        totalSeleccionado = true
     else
         totalSeleccionado = false
+    if (localStorage.avanzado != "false" && localStorage.avanzado != undefined)
+        avanzado = true
+    else
+        avanzado = false
     crearTablaInicial()
     funcionesTabla()
     let botonTipo = document.getElementsByName("tipoAtaca")
@@ -63,7 +68,6 @@ function desplegarFunciona() {
         setTimeout(() => tamanodesplegable = window.getComputedStyle(desplegable).height, 800)
     } else {
         desplegable.style.maxHeight = "0px"
-
     }
     desplegableBoton.disabled = true
     setTimeout(() => desplegableBoton.disabled = false, 800)
@@ -86,31 +90,127 @@ function copiarDireccionMetamask() {
 
 function funcionesGestorEnergia() {
     let energia = document.getElementById("energia")
-    let turno = document.getElementById('turno')
-    document.getElementById("resetEnergia").addEventListener("click", () => {
-        energia.value = 3;
-        turno.value = 1;
-        historico.textContent = "Turno: 1| 3; "
-    })
-
-    document.getElementById("energiaMenosUno").addEventListener("click", () => {
-        energia.value > 0 ? energia.value-- : ""
-        let span = crearElemento("span", "textContent", energia.value + "; ")
-        historico.appendChild(span)
-    })
+    // let turno = document.getElementById('turno')
+    document.getElementById("resetEnergia").addEventListener("click", resetEnergia)
+    document.getElementById("energiaMenosUno").addEventListener("click", energiaMenosUno)
     document.getElementById("energiaMasUno").addEventListener("click", () => {
         energia.value < 10 ? energia.value++ : ""
         let span = crearElemento("span", "textContent", energia.value + "; ")
         historico.appendChild(span)
     })
-    document.getElementById('sumarTurno').addEventListener('click', () => {
-        energia.value < 9 ? energia.value = Number(energia.value) + 2 : energia.value = 10;
-        turno.value++
-        let salto = crearElemento("br")
-        historico.appendChild(salto)
-        let span = crearElemento("span", "textContent", `Turno:  ${turno.value}| ${energia.value}; `)
-        historico.appendChild(span)
+    document.getElementById('sumarTurno').addEventListener('click', sumarTurno)
+    document.getElementById("cartasMasUno").addEventListener("click", () => {
+        document.getElementById("cartas").value++
     })
+    document.getElementById("restablecerCartas").addEventListener("click", () => {
+        vaciarCartas()
+        document.getElementById("cartas").value -= cartasUsadas
+        cartasUsadas = 0
+    })
+    let tablas = ["front", "mid", "back"]
+    let partes = ["Boca", "Cuerno", "Espalda", "Cola"]
+    for (let i = 1; i < 3; i++) {
+        for (let j = 0; j < partes.length; j++) {
+            for (let k = 0; k < tablas.length; k++) {
+                document.getElementById(tablas[k] + partes[j] + i).addEventListener("click", usarCarta)
+            }
+
+        }
+    }
+    for (let i = 0; i < tablas.length; i++) {
+        document.getElementById(tablas[i] + "Muerto").addEventListener("change", revisarMuertos)
+    }
+    document.getElementById("cambiarModoEnergia").addEventListener("click", cambiarModoEnergia)
+    if (avanzado) {
+        let evt = new Event('click')
+        document.getElementById("cambiarModoEnergia").dispatchEvent(evt)
+    }
+}
+
+function cambiarModoEnergia() {
+    if (this.textContent == "Cambiar a Avanzado") {
+        this.textContent = "Cambiar a Simple"
+        avanzado = true
+        localStorage.avanzado = true
+    } else {
+        this.textContent = "Cambiar a Avanzado"
+        avanzado = false
+        localStorage.avanzado = false
+
+    }
+    document.getElementById("tablaCartas").classList.toggle("display-none")
+
+}
+
+function revisarMuertos() {
+    let tablas = ["front", "mid", "back"],
+        contarVivos = 0
+    for (let i = 0; i < tablas.length; i++) {
+        document.getElementById(tablas[i] + "Muerto").checked ? "" : contarVivos++
+    }
+    console.log(contarVivos);
+    document.getElementById("cartasMaximas").value = 8 * contarVivos
+}
+
+function energiaMenosUno() {
+    energia.value > 0 ? energia.value-- : ""
+    let span = crearElemento("span", "textContent", energia.value + "; ")
+    historico.appendChild(span)
+}
+
+function usarCarta() {
+    if (this.textContent == "") {
+        if (this.parentNode.firstElementChild.nextElementSibling.firstElementChild.checked) {
+            if (energia.value > 0) {
+                energiaMenosUno()
+                this.textContent = "X"
+                cartasUsadas++
+            }
+        } else {
+            this.textContent = "X"
+            cartasUsadas++
+        }
+    }
+}
+
+function sumarTurno() {
+    energia.value < 9 ? energia.value = Number(energia.value) + 2 : energia.value = 10;
+    turno.value++
+    let salto = crearElemento("br")
+    historico.appendChild(salto)
+    let span = crearElemento("span", "textContent", `Turno:  ${turno.value}| ${energia.value}; `)
+    historico.appendChild(span)
+    if (avanzado) {
+        document.getElementById("cartas").value = Number(document.getElementById("cartas").value) + 3
+        //quiza comprobar si supera 24 y restablecer y alomejor guardar en un historico si lo hace.
+    }
+}
+
+function resetEnergia() {
+    energia.value = 3;
+    turno.value = 1;
+    historico.textContent = "Turno: 1| 3; "
+    if (avanzado) {
+        document.getElementById("cartas").value = 6
+        document.getElementById("frontMuerto").checked ? document.getElementById("frontMuerto").checked = false : ""
+        document.getElementById("midMuerto").checked ? document.getElementById("midMuerto").checked = false : ""
+        document.getElementById("backMuerto").checked ? document.getElementById("backMuerto").checked = false : ""
+        vaciarCartas()
+        cartasUsadas = 0
+    }
+}
+
+function vaciarCartas() {
+    let tablas = ["front", "mid", "back"]
+    let partes = ["Boca", "Cuerno", "Espalda", "Cola"]
+    for (let i = 1; i < 3; i++) {
+        for (let j = 0; j < partes.length; j++) {
+            for (let k = 0; k < tablas.length; k++) {
+                document.getElementById(tablas[k] + partes[j] + i).textContent = ""
+            }
+
+        }
+    }
 }
 
 function cogerValorChecked() {
