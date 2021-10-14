@@ -192,9 +192,11 @@ function resetEnergia() {
     historico.textContent = "Turno: 1| 3; "
     if (avanzado) {
         document.getElementById("cartas").value = 6
+        // añadir que reinicie lo de las energias
         document.getElementById("frontMuerto").checked ? document.getElementById("frontMuerto").checked = false : ""
         document.getElementById("midMuerto").checked ? document.getElementById("midMuerto").checked = false : ""
         document.getElementById("backMuerto").checked ? document.getElementById("backMuerto").checked = false : ""
+        document.getElementById("cartasMaximas").value = 24
         vaciarCartas()
         cartasUsadas = 0
     }
