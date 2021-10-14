@@ -90,14 +90,9 @@ function copiarDireccionMetamask() {
 
 function funcionesGestorEnergia() {
     let energia = document.getElementById("energia")
-    // let turno = document.getElementById('turno')
     document.getElementById("resetEnergia").addEventListener("click", resetEnergia)
     document.getElementById("energiaMenosUno").addEventListener("click", energiaMenosUno)
-    document.getElementById("energiaMasUno").addEventListener("click", () => {
-        energia.value < 10 ? energia.value++ : ""
-        let span = crearElemento("span", "textContent", energia.value + "; ")
-        historico.appendChild(span)
-    })
+    document.getElementById("energiaMasUno").addEventListener("click", energiaMasUno)
     document.getElementById('sumarTurno').addEventListener('click', sumarTurno)
     document.getElementById("cartasMasUno").addEventListener("click", () => {
         document.getElementById("cartas").value++
@@ -158,6 +153,12 @@ function energiaMenosUno() {
     historico.appendChild(span)
 }
 
+function energiaMasUno() {
+    energia.value < 10 ? energia.value++ : ""
+    let span = crearElemento("span", "textContent", energia.value + "; ")
+    historico.appendChild(span)
+}
+
 function usarCarta() {
     if (this.textContent == "") {
         if (this.parentNode.firstElementChild.nextElementSibling.firstElementChild.checked) {
@@ -169,6 +170,17 @@ function usarCarta() {
         } else {
             this.textContent = "X"
             cartasUsadas++
+        }
+    } else {
+        if (this.parentNode.firstElementChild.nextElementSibling.firstElementChild.checked) {
+            if (energia.value > 0) {
+                energiaMasUno()
+                this.textContent = ""
+                cartasUsadas--
+            }
+        } else {
+            this.textContent = ""
+            cartasUsadas--
         }
     }
 }
@@ -192,7 +204,13 @@ function resetEnergia() {
     historico.textContent = "Turno: 1| 3; "
     if (avanzado) {
         document.getElementById("cartas").value = 6
-        // añadir que reinicie lo de las energias
+        let tablas = ["front", "mid", "back"]
+        let partes = ["Boca", "Cuerno", "Espalda", "Cola"]
+        for (let j = 0; j < partes.length; j++) {
+            for (let k = 0; k < tablas.length; k++) {
+                document.getElementById(tablas[k] + partes[j]).checked = true
+            }
+        }
         document.getElementById("frontMuerto").checked ? document.getElementById("frontMuerto").checked = false : ""
         document.getElementById("midMuerto").checked ? document.getElementById("midMuerto").checked = false : ""
         document.getElementById("backMuerto").checked ? document.getElementById("backMuerto").checked = false : ""
@@ -234,7 +252,6 @@ function funcionesTabla() {
     document.getElementById("mostrarOpcionesTabla").addEventListener("click", mostrarOpcionesTabla)
     document.getElementById("borrarNumero").addEventListener("click", borrarNumero)
     document.getElementById("anadirNumero").addEventListener("click", anadirNumero)
-
     for (let i = 1; i < 5; i++) {
         document.getElementById("base" + i).addEventListener("keyup", calcularFilas)
         let aux = ["checkboxDebuff", "checkboxDebuff2", "checkboxPotenciado", "checkboxPotenciado2", "checkboxCritico"]
@@ -556,7 +573,6 @@ function cogerAltura(elemento) {
     elemento.style.visibility = 'hidden'
     elemento.style.display = 'block'
     elemento.style.maxHeight = '10000px'
-
 
     alturaElemento = elemento.offsetHeight
     elemento.style.maxHeight = elementoAlturaMax
