@@ -53,7 +53,7 @@ function crearExplicacion() {
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
-    texto2.textContent = "A continuación tenemos opciones como -20%, Crit y +20% que son para los bonos, hay cartas que sabemos que van a hacer crítico o que van a tener estos bonos ya sea por buff o por que lo pone en la descripción, en las opciones de abajo podemos cambiar que campos se muestran aqui."
+    texto2.textContent = "A continuación tenemos opciones como -20%, Crit y +20% que son para los bonos, hay cartas que sabemos que van a hacer crítico o que van a tener estos bonos ya sea por buff o por que lo pone en la descripción, en las opciones de abajo podemos cambiar que campos se muestran aquí."
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
@@ -99,7 +99,7 @@ function crearExplicacion() {
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
-    texto2.textContent = "En los Checbox que tenemos aqui tambien podemos cambiar los botones de -20%,crit y +20% y solo mostrar los que nos interesan."
+    texto2.textContent = "En los Checbox que tenemos aquí también podemos cambiar los botones de -20%,crit y +20% y solo mostrar los que nos interesan."
     parrafo.appendChild(salto)
     parrafo.appendChild(texto2)
     salto = crearElemento("br")
@@ -113,9 +113,29 @@ function crearExplicacion() {
     contenedor.appendChild(parrafo)
     parrafo = crearElemento("P", "textContent", "Después tenemos una imagen con los tipos de axie y sus fortalezas y debilidades.")
     contenedor.appendChild(parrafo)
-    h3 = crearElemento("H3", "textContent", "Visualizador de energia.")
+    h3 = crearElemento("H3", "textContent", "Visualizador de energía.")
     contenedor.appendChild(h3)
-    parrafo = crearElemento("P", "textContent", "Por último tenemos nuestro visualizador de la energía del rival con un histórico, se muestran campos para la energía para el turno que podemos modificar con la botonera de abajo, cuando pulsamos el botón Reset lo ponemos todo como al iniciar una partida en pvp, los botones +1 y -1 gestionan la energía y cuando pulsamos en turno añadimos la energía por el nuevo turno y cambiamos el turno.")
+    parrafo = crearElemento("P", "textContent", "Por último tenemos nuestro visualizador de la energía del rival con un histórico, en el modo simple se muestran campos para la energía para el turno que podemos modificar con la botonera de abajo, cuando pulsamos el botón Reset lo ponemos todo como al iniciar una partida en pvp, los botones +1 y -1 gestionan la energía y cuando pulsamos en turno añadimos la energía por el nuevo turno y cambiamos el turno.")
+    contenedor.appendChild(parrafo)
+    parrafo = crearElemento("P", "textContent", "En el modo avanzado tenemos todo lo anterior más unas tablas que representan los axies rivales con espacios para cada carta. En estas podemos ver los campos:")
+    salto = crearElemento("br")
+    parrafo.appendChild(salto)
+    texto2.textContent = "Posición: Indica de qué posición es la carta."
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    parrafo.appendChild(salto)
+    texto2.textContent = "E: Si está marcada al usar la carta usará energía."
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    parrafo.appendChild(salto)
+    texto2.textContent = "1 y 2: Son las veces que se pueden usar las cartas antes de que roten, al pinchar simula que se han usado, si vuelves a pinchar lo quita."
+    parrafo.appendChild(texto2)
+    salto = crearElemento("br")
+    parrafo.appendChild(salto)
+    texto2.textContent = "Muerto: Cambia la cantidad máxima de cartas que puede tener según su número de axies."
+    parrafo.appendChild(texto2)
+    contenedor.appendChild(parrafo)
+    parrafo = crearElemento("P", "textContent", "Ahora vamos al contador de cartas y su botonera,la primera parte muestra las cartas que ha robado, al apretar en el boton turno irá sumando las cartas que se roban, el segundo número indica cual es el maximo de cartas según los axies vivos, el botón +1 añade cartas por si roban fuera del cambio de turno, al apretar a restablecer se vacían las X de la tabla por que se han barajado las cartas.")
     contenedor.appendChild(parrafo)
     parrafo = crearElemento("P", "textContent", "En el histórico se va mostrando cada paso que da.")
     contenedor.appendChild(parrafo)

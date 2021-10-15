@@ -29,7 +29,7 @@ function loadGeneral() {
             potenciado2: false
         }
     }
-    if (localStorage.totalSeleccionado != "false")
+    if (localStorage.totalSeleccionado != "false" && localStorage.totalSeleccionado != undefined)
         totalSeleccionado = true
     else
         totalSeleccionado = false
