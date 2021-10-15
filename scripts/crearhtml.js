@@ -12,7 +12,7 @@ function crearExplicacion() {
     parrafo.appendChild(enlace)
     parrafo.appendChild(texto2)
     let contenedorIframe = crearElemento("DIV", "class", "contenedorIframe")
-    let iframe = crearElemento("IFRAME", "class", "tamanoIframe", "src", "https://www.youtube.com/embed/1hNE5Rx9T74", "tittle", "Video explicando cómo funciona", "frameborder", "0", "allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", "allowfullscreen", "allowfullscreen", "loading", "lazy")
+    let iframe = crearElemento("IFRAME", "class", "tamanoIframe", "src", "https://www.youtube.com/embed/EiTF9sDV3Yk", "tittle", "Video explicando cómo funciona", "frameborder", "0", "allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", "allowfullscreen", "allowfullscreen", "loading", "lazy")
     contenedorIframe.appendChild(iframe)
     contenedor.appendChild(contenedorIframe)
     contenedor.appendChild(h3)
