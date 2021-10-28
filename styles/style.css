@@ -157,7 +157,7 @@ th {
     margin: auto;
 }
 
-.cantidadCartas {
+.cartas {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,6 +234,10 @@ th {
 
 .noPadding {
     padding: 0 0.5rem;
+}
+
+.espaciado {
+    margin: 0.3rem 0;
 }
 
 .oculto {

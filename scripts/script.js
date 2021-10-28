@@ -91,12 +91,25 @@ function copiarDireccionMetamask() {
 function funcionesGestorEnergia() {
     let energia = document.getElementById("energia")
     document.getElementById("resetEnergia").addEventListener("click", resetEnergia)
+    document.getElementById("resetEnergia2").addEventListener("click", resetEnergia)
     document.getElementById("energiaMenosUno").addEventListener("click", energiaMenosUno)
+    document.getElementById("energiaMenosUno2").addEventListener("click", energiaMenosUno)
     document.getElementById("energiaMasUno").addEventListener("click", energiaMasUno)
+    document.getElementById("energiaMasUno2").addEventListener("click", energiaMasUno)
     document.getElementById('sumarTurno').addEventListener('click', sumarTurno)
-    document.getElementById("cartasMasUno").addEventListener("click", () => {
+    document.getElementById('sumarTurno2').addEventListener('click', sumarTurno)
+
+    document.getElementById("robarCarta").addEventListener("click", () => {
         document.getElementById("cartas").value++
+        document.getElementById("cartasMano").value++
     })
+    document.getElementById("descartarCarta").addEventListener("click", () => {
+        document.getElementById("cartasMano").value--
+    })
+    document.getElementById("quitarCartaMazo").addEventListener("click", () => {
+        document.getElementById("cartas").value--
+    })
+
     document.getElementById("restablecerCartas").addEventListener("click", () => {
         vaciarCartas()
         document.getElementById("cartas").value -= cartasUsadas
@@ -143,7 +156,6 @@ function revisarMuertos() {
     for (let i = 0; i < tablas.length; i++) {
         document.getElementById(tablas[i] + "Muerto").checked ? "" : contarVivos++
     }
-    console.log(contarVivos);
     document.getElementById("cartasMaximas").value = 8 * contarVivos
 }
 
@@ -160,27 +172,36 @@ function energiaMasUno() {
 }
 
 function usarCarta() {
+    let cartasEnMano = document.getElementById("cartasMano")
+
     if (this.textContent == "") {
+        // Comprobamos si la carta usada gasta energia y si tiene energia para usar.
         if (this.parentNode.firstElementChild.nextElementSibling.firstElementChild.checked) {
-            if (energia.value > 0) {
+            if (energia.value > 0 & cartasEnMano.value > 0) {
                 energiaMenosUno()
                 this.textContent = "X"
                 cartasUsadas++
+                cartasEnMano.value--
             }
-        } else {
+        } else if (cartasEnMano.value > 0) {
             this.textContent = "X"
             cartasUsadas++
+            cartasEnMano.value--
+
         }
     } else {
+        // Comprobamos si la carta usada gasta energia y si tiene energia para usar.
         if (this.parentNode.firstElementChild.nextElementSibling.firstElementChild.checked) {
-            if (energia.value > 0) {
+            if (energia.value >= 0 & cartasEnMano.value < 12) {
                 energiaMasUno()
                 this.textContent = ""
                 cartasUsadas--
+                cartasEnMano.value++
             }
-        } else {
+        } else if (cartasEnMano.value < 12) {
             this.textContent = ""
             cartasUsadas--
+            cartasEnMano.value++
         }
     }
 }
@@ -194,6 +215,8 @@ function sumarTurno() {
     historico.appendChild(span)
     if (avanzado) {
         document.getElementById("cartas").value = Number(document.getElementById("cartas").value) + 3
+        document.getElementById("cartasMano").value = Number(document.getElementById("cartasMano").value) + 3
+
         //quiza comprobar si supera 24 y restablecer y alomejor guardar en un historico si lo hace.
     }
 }
@@ -203,6 +226,7 @@ function resetEnergia() {
     turno.value = 1;
     historico.textContent = "Turno: 1| 3; "
     if (avanzado) {
+        document.getElementById("cartasMano").value = 6
         document.getElementById("cartas").value = 6
         let tablas = ["front", "mid", "back"]
         let partes = ["Boca", "Cuerno", "Espalda", "Cola"]

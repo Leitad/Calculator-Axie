@@ -164,17 +164,32 @@
                     </table>
                     <br>
                 </div>
-                <div id="contadorCartas" class="cantidadCartas">
-                    <label for="cartas">Cartas: </label>
+                <div id="contadorCartasMano" class="cartas espaciado">
+                    <label for="cartasMano">Cartas en mano: </label>
+                    <input type="number" value="6" id="cartasMano" class="energia" disabled="disabled">
+                </div>
+                <div id="contadorCartas" class="cartas">
+
+                    <label for="cartas">Cartas mazo: </label>
                     <input type="number" value="6" id="cartas" class="energia" disabled="disabled">
                     <span style="font-size: 2.5rem;">/</span>
                     <input type="number" value="24" id="cartasMaximas" class="energia" disabled="disabled">
-                    <button type="button" id="cartasMasUno">+1</button>
-                    <button type="button" id="restablecerCartas">Restablecer</button>
 
                 </div>
+                <div class="botoneraCartas">
+                    <button type="button" id="quitarCartaMazo">-1 Mazo</button>
+                    <button type="button" id="descartarCarta">Descarta Carta</button>
+                    <button type="button" id="robarCarta">Roba Carta</button>
+                    <button type="button" id="restablecerCartas">Rotar Mazo</button>
+                </div>
+                <div class="espaciado">
+                    <button type="button" id="resetEnergia2">Reset</button>
+                    <button type="button" id="energiaMenosUno2">-1</button>
+                    <button type="button" id="energiaMasUno2">+ 1</button>
+                    <button type="button" id="sumarTurno2">Turno</button>
+                </div>
             </article>
-            <article id="mostrarOpcionesEnergia">
+            <article id="mostrarOpcionesEnergia" class="espaciado">
                 <button type="button" id="cambiarModoEnergia">Cambiar a Avanzado</button>
             </article>
             <article id="comoFunciono" class="padding-bottom-footer"></article>
