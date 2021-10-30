@@ -12,7 +12,7 @@ function crearExplicacion() {
     parrafo.appendChild(enlace)
     parrafo.appendChild(texto2)
     let contenedorIframe = crearElemento("DIV", "class", "contenedorIframe")
-    let iframe = crearElemento("IFRAME", "class", "tamanoIframe", "src", "https://www.youtube.com/embed/EiTF9sDV3Yk", "tittle", "Video explicando cómo funciona", "frameborder", "0", "allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", "allowfullscreen", "allowfullscreen", "loading", "lazy")
+    let iframe = crearElemento("IFRAME", "class", "tamanoIframe", "src", "https://www.youtube.com/embed/oVSKQdTPpB8", "tittle", "Video explicando cómo funciona", "frameborder", "0", "allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", "allowfullscreen", "allowfullscreen", "loading", "lazy")
     contenedorIframe.appendChild(iframe)
     contenedor.appendChild(contenedorIframe)
     contenedor.appendChild(h3)
@@ -135,7 +135,7 @@ function crearExplicacion() {
     texto2.textContent = "Muerto: Cambia la cantidad máxima de cartas que puede tener según su número de axies."
     parrafo.appendChild(texto2)
     contenedor.appendChild(parrafo)
-    parrafo = crearElemento("P", "textContent", "Ahora vamos al contador de cartas y su botonera,la primera parte muestra las cartas que ha robado, al apretar en el boton turno irá sumando las cartas que se roban, el segundo número indica cual es el maximo de cartas según los axies vivos, el botón +1 añade cartas por si roban fuera del cambio de turno, al apretar a restablecer se vacían las X de la tabla por que se han barajado las cartas.")
+    parrafo = crearElemento("P", "textContent", "Ahora vamos al contador de cartas y su botonera, cartas en mano muestra las cartas que debería tener ahora mismo el rival,  y cartas mazo muestra las cartas que ha robado y el máximo que puede tener según los axies que estén vivos, al apretar en el botón turno irá sumando las cartas que se roban. El botón “-1 mazo” quita cartas del mazo lo deberíamos usar al morir un axie para ajustar las cartas que tiene el rival, “Descarta Carta” se usa al tu descartar cartas del rival para poder mantener concordancia con el contador, “Roba Carta” añade cartas por si roban fuera del cambio de turno, al apretar a “Rotar Mazo” se vacían las X de la tabla por que se han barajado las cartas. He añadido también un clon de la botonera de gestión de energía para poder usarlo desde aquí.")
     contenedor.appendChild(parrafo)
     parrafo = crearElemento("P", "textContent", "En el histórico se va mostrando cada paso que da.")
     contenedor.appendChild(parrafo)
