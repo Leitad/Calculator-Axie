@@ -271,7 +271,7 @@ function crearTablaInicial() {
     label = crearElemento("LABEL", "for", "debuff2", "textContent", "-20%")
     contenedor2.appendChild(checkbox)
     contenedor2.appendChild(label)
-    checkbox = crearElemento("INPUT", "type", "checkbox", "id", "critico")
+    checkbox = crearElemento("INPUT", "type", "checkbox", "id", "critico", "disabled", "disabled")
     label = crearElemento("LABEL", "for", "critico", "textContent", "Crit")
     contenedor2.appendChild(checkbox)
     contenedor2.appendChild(label)

@@ -333,6 +333,7 @@ function seleccionarColumna() {
     for (let i = 1; i < 5; i++) {
         document.getElementById(this.id + i).classList.add("seleccionado")
     }
+    calcularSeleccionado()
 }
 
 function cambiarSeleccionado() {
@@ -505,7 +506,8 @@ function crearOpcionesGestor() {
 function calcularFilas() {
     let numeroDeFila = this.id.slice(this.id.length - 1)
     let posicion,
-        checkboxPotenciado, valorCeldaNormal, checkboxCritico, checkboxPotenciado2, checkboxDebuff, checkboxDebuff2, valorSeleccionado = document.getElementById("totalSeleccionado").checked
+        checkboxPotenciado, valorCeldaNormal, checkboxCritico, checkboxPotenciado2, checkboxDebuff, checkboxDebuff2, valorSeleccionado = document.getElementById("totalSeleccionado").checked,
+        normTipo, debTipo, fueTipo
     posicion = document.getElementById(`base${numeroDeFila}`)
     valorCeldaNormal = posicion.value
     checkboxDebuff = document.getElementById(`checkboxDebuff${numeroDeFila}`).checked
@@ -515,11 +517,17 @@ function calcularFilas() {
     checkboxPotenciado2 = document.getElementById(`checkboxPotenciado2${numeroDeFila}`).checked
     let normal = valorCeldaNormal,
         debil = valorCeldaNormal * 0.85,
-        fuerte = valorCeldaNormal * 1.15,
-        normTipo = normal * 1.1,
-        debTipo = debil * 1.1,
-        fueTipo = fuerte * 1.1,
-        arrayvalores = [normal, debil, fuerte, normTipo, debTipo, fueTipo]
+        fuerte = valorCeldaNormal * 1.15
+    if (skillaxie == 31 || skillaxie == 35) {
+        normTipo = normal * 1.1
+        debTipo = debil * 1.1
+        fueTipo = fuerte * 1.1
+    } else {
+        normTipo = normal * 1.075
+        debTipo = debil * 1.075
+        fueTipo = fuerte * 1.075
+    }
+    arrayvalores = [normal, debil, fuerte, normTipo, debTipo, fueTipo]
     if (checkboxDebuff) {
         arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 0.8)
     }
@@ -535,7 +543,10 @@ function calcularFilas() {
     if (checkboxCritico) {
         arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 2)
     }
-    arrayvalores.forEach((dato, indice, arr) => arr[indice] = Math.trunc(Number(dato) + valorCeldaNormal * skillaxie / 500))
+    arrayvalores.forEach((dato, indice, arr) => {
+        if (arr[indice] != 0)
+            arr[indice] = Math.trunc(Number(dato) + skillaxie * 0.55 - 12.5)
+    })
     let arrayTabla = ["normal", "debil", "fuerte", "normTipo", "debTipo", "fueTipo"]
     for (let i = 0; i < arrayTabla.length; i++) {
         document.getElementById(arrayTabla[i] + numeroDeFila).value = arrayvalores[i]
