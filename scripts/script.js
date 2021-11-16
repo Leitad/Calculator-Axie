@@ -1,7 +1,7 @@
 let arrayValoresBotones,
-    skillaxie = 31,
+    skillaxie,
     historico, desplegable, desplegableBoton, tamanodesplegable, bonosDano, totalSeleccionado, cartasUsadas = 0,
-    avanzado
+    avanzado, formulaCrit
 
 window.addEventListener("load", loadGeneral)
 
@@ -24,7 +24,7 @@ function loadGeneral() {
         bonosDano = {
             debuff: false,
             debuff2: false,
-            critico: true,
+            critico: false,
             potenciado: true,
             potenciado2: false
         }
@@ -37,12 +37,20 @@ function loadGeneral() {
         avanzado = true
     else
         avanzado = false
+    // comprobar si funciona si no poner number
+    if (localStorage.moralCriticos != undefined)
+        document.getElementById("moralCriticos").value = localStorage.moralCriticos
     crearTablaInicial()
+    // Ponemos el valor incial que este checked en tipoAtaca en la variable skillaxie.
+    skillaxie = document.querySelectorAll("input[name = tipoAtaca]:checked")[0].value
     funcionesTabla()
+    mostrarMoralCriticos()
+
     let botonTipo = document.getElementsByName("tipoAtaca")
     for (let i = 0; i < botonTipo.length; i++) {
         botonTipo[i].addEventListener("change", cogerValorChecked)
     }
+    //  toggleMoralCritico()
     crearImg()
     crearGestorEnergia()
     crearOpcionesGestor()
@@ -50,17 +58,33 @@ function loadGeneral() {
     crearHistorico()
     historico = document.getElementById("historico")
     crearExplicacion()
-
     desplegable = document.getElementById("contenedorExplicacion")
     desplegableBoton = document.getElementById("mostrarComoFunciona")
-
     tamanodesplegable = cogerAltura(desplegable) + 'px'
     window.addEventListener('resize', actualizarResize)
     desplegableBoton.addEventListener('click', desplegarFunciona)
     document.getElementById("copiar").addEventListener("click", copiarDireccionMetamask)
+    document.getElementById("moralCriticos").addEventListener("keyup", guardarMoralCritico)
+    // document.getElementById("critico").addEventListener("change", toggleMoralCritico)
+    let moralCriticos = document.getElementById("moralCriticos").value
+    formulaCrit = (Math.sqrt(moralCriticos) * 10 + moralCriticos * 0.4 - 18) / 100 + 1
 }
 
+function mostrarMoralCriticos() {
+    let critico = document.getElementById("critico")
+    let contenedorMoralCriticos = document.getElementById("contenedorMoralCriticos")
+    if (critico.checked)
+        contenedorMoralCriticos.classList.remove("display-none")
+    else
+        contenedorMoralCriticos.classList.add("display-none")
+}
 
+function guardarMoralCritico() {
+    localStorage.moralCriticos = this.value
+    let moralCriticos = this.value
+    formulaCrit = (Math.sqrt(moralCriticos) * 10 + moralCriticos * 0.4 - 18) / 100 + 1
+    generarEventoTabla()
+}
 
 function desplegarFunciona() {
     if (window.getComputedStyle(desplegable).height == "0px") {
@@ -299,6 +323,8 @@ function funcionesTabla() {
     for (i = 0; i < arrayValoresBotones.length; i++) {
         document.getElementById(i + "Total").parentNode.textContent = ""
     }
+    // Muestra u oculta checkbox en la tabla  
+    console.log(bonosDano);
     for (valor in bonosDano) {
         let aux = document.getElementById(valor),
             clase = document.getElementsByClassName(valor)
@@ -308,6 +334,10 @@ function funcionesTabla() {
             for (let i = 0; i < clase.length; i++)
                 clase[i].classList.add("display-none")
         }
+        if (valor == "critico") {
+            aux.addEventListener("change", mostrarMoralCriticos)
+        }
+        console.log(aux);
         aux.addEventListener("change", toggleCheckbox)
     }
     let elementoTotalSeleccionado = document.getElementById("totalSeleccionado")
@@ -541,7 +571,7 @@ function calcularFilas() {
         arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 1.2)
     }
     if (checkboxCritico) {
-        arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * 2)
+        arrayvalores.forEach((dato, indice, arr) => arr[indice] = dato * formulaCrit)
     }
     arrayvalores.forEach((dato, indice, arr) => {
         if (arr[indice] != 0)
