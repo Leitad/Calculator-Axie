@@ -324,7 +324,6 @@ function funcionesTabla() {
         document.getElementById(i + "Total").parentNode.textContent = ""
     }
     // Muestra u oculta checkbox en la tabla  
-    console.log(bonosDano);
     for (valor in bonosDano) {
         let aux = document.getElementById(valor),
             clase = document.getElementsByClassName(valor)
@@ -337,7 +336,6 @@ function funcionesTabla() {
         if (valor == "critico") {
             aux.addEventListener("change", mostrarMoralCriticos)
         }
-        console.log(aux);
         aux.addEventListener("change", toggleCheckbox)
     }
     let elementoTotalSeleccionado = document.getElementById("totalSeleccionado")
